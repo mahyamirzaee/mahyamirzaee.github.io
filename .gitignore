@@ -1,0 +1,14 @@
+# build output and installed packages
+node_modules/
+dist/
+.astro/
+
+# PRIVATE raw materials: never uploaded to GitHub.
+# Only files copied into public/ become part of the website.
+materials/
+
+.DS_Store
+Thumbs.db
+
+# local editor/preview settings
+.claude/

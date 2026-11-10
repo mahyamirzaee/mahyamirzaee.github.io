@@ -1,0 +1,27 @@
+---
+// Publications: texts and references come from src/content/pages/<lang>/publications.md
+import Base from '../layouts/Base.astro';
+import Reference from '../components/Reference.astro';
+import { page, type Lang } from '../i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const { entry, fallback } = await page('publications', lang);
+const d = entry.data as any;
+---
+<Base title={d.title} description={d.description} lang={lang} fallback={fallback}>
+  <h1>{d.title}</h1>
+  {d.intro && <p class="intro">{d.intro}</p>}
+  <ol class="refs">{d.items.map((item: any) => <Reference item={item} lang={lang} projectLabel={d.projectLink} />)}</ol>
+  {d.thesis && (
+    <>
+      <h2>{d.thesisTitle}</h2>
+      <ol class="refs"><Reference item={d.thesis} lang={lang} projectLabel={d.projectLink} /></ol>
+    </>
+  )}
+</Base>
+<style>
+  .intro { color: var(--muted); max-width: var(--measure); margin-bottom: 3rem; }
+  .refs { list-style: none; padding: 0; margin: 0; max-width: 54rem; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 1.4rem; margin-top: 4rem; }
+</style>

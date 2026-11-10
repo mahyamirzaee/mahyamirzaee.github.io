@@ -1,0 +1,37 @@
+---
+// One project in the grid (two per row on large screens).
+// Size order: image (biggest) → title → description → year and keywords (smallest).
+import Placeholder from './Placeholder.astro';
+import { asset } from '../i18n';
+interface Props { href: string; data: any; n: number; wipLabel: string; }
+const { href, data, n, wipLabel } = Astro.props;
+---
+<li class="item">
+  <div class="media" aria-hidden="true">
+    {data.cover
+      ? <img src={asset(data.cover)} alt="" loading="lazy" />
+      : <Placeholder label={`image for ${data.title}`} ratio="3 / 2" />}
+  </div>
+  <p class="top">
+    <span class="num" aria-hidden="true">{String(n).padStart(2, '0')}</span>
+    <span>{data.year}{data.status && <span class="wip"> · {wipLabel}</span>}</span>
+  </p>
+  <h2><a href={href}>{data.title}</a></h2>
+  <p class="short">{data.short}</p>
+  {data.tags.length > 0 && <ul class="tags">{data.tags.map((t: string) => <li>{t}</li>)}</ul>}
+</li>
+<style>
+  .item { position: relative; }
+  .media { overflow: hidden; margin-bottom: 1.1rem; background: var(--surface); }
+  .media img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: top; transition: transform .5s ease; }
+  .item:hover .media img { transform: scale(1.02); }
+  .top { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin: 0 0 0.4rem; }
+  .num { color: var(--thread); }
+  .wip { color: var(--accent); }
+  h2 { font-size: 1.3rem; margin: 0 0 0.5rem; }
+  h2 a { color: var(--text); text-decoration: none; }
+  /* the whole card is clickable */
+  h2 a::after { content: ''; position: absolute; inset: 0; }
+  .item:hover h2 a { color: var(--accent); }
+  .short { color: var(--muted); margin: 0 0 0.9rem; }
+</style>

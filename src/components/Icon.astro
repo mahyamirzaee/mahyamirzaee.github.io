@@ -1,0 +1,17 @@
+---
+// Profile icons. All drawn the same way, so they match:
+// a small rounded square in the text colour with the logo cut out in the background colour.
+import { siGithub, siResearchgate } from 'simple-icons';
+interface Props { name: 'github' | 'researchgate' | 'linkedin' | 'cv'; }
+const { name } = Astro.props;
+const linkedin = 'M6.5 10h2.6v7.5H6.5zM7.8 5.8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM10.9 10h2.5v1.1c.4-.7 1.3-1.3 2.5-1.3 2.1 0 2.9 1.3 2.9 3.5v4.2h-2.6v-3.7c0-1-.3-1.7-1.3-1.7s-1.5.7-1.5 1.7v3.7h-2.5z';
+const logo = name === 'github' ? siGithub.path : name === 'researchgate' ? siResearchgate.path : null;
+---
+<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+  <rect x="0" y="0" width="24" height="24" rx="4" fill="currentColor" />
+  {name === 'cv'
+    ? <text x="12" y="16.2" text-anchor="middle" font-family="var(--font-text)" font-size="10.5" font-weight="700" fill="var(--bg)">CV</text>
+    : logo
+      ? <path d={logo} fill="var(--bg)" transform="translate(5 5) scale(0.5833)" />
+      : <path d={linkedin} fill="var(--bg)" />}
+</svg>

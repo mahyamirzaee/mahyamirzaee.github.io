@@ -1,0 +1,66 @@
+---
+// Home: a short text about me, with my experience listed on the right.
+// All texts: src/content/pages/<lang>/home.md
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { link, page, type Lang } from '../i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const { entry, fallback } = await page('home', lang);
+const d = entry.data as any;
+const { Content } = await render(entry);
+const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefined);
+---
+<Base description={d.description} lang={lang} fallback={fallback}>
+  <div class="home">
+    <div class="text"><Content /></div>
+
+    {d.experience && (
+      <aside class="exp" aria-labelledby="exp-title">
+        <h2 id="exp-title">{d.experienceTitle}</h2>
+        <ol>
+          {d.experience.map((e: any) => (
+            <li>
+              <details>
+                <summary>
+                  <span class="when">{e.when}</span>
+                  <span class="what">{e.what}</span>
+                  {e.where && <span class="where">{e.where}</span>}
+                </summary>
+                {e.text && <p class="desc">{e.text}</p>}
+                {e.link && <p class="more"><a href={href(e.link)}>{d.projectLink} →</a></p>}
+              </details>
+            </li>
+          ))}
+        </ol>
+      </aside>
+    )}
+  </div>
+</Base>
+<style>
+  .home { display: grid; grid-template-columns: minmax(0, 46rem) minmax(16rem, 1fr); gap: 3rem clamp(2.5rem, 6vw, 5.5rem); align-items: start; }
+  .text { line-height: 1.75; }
+  .text :global(p) { margin-bottom: 1.3em; }
+  .text :global(em) { font-style: italic; color: var(--accent); }
+
+  .exp h2 { font-family: var(--font-text); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0.4rem 0 1.2rem; }
+  .exp ol { list-style: none; margin: 0; padding: 0; }
+  .exp > ol > li { border-top: 1px solid var(--line); }
+  .exp > ol > li:last-child { border-bottom: 1px solid var(--line); }
+  /* Each entry opens and closes on click; the + turns into – when open */
+  summary { list-style: none; cursor: pointer; position: relative; padding: 0.9rem 1.6rem 0.9rem 0; display: block; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; position: absolute; right: 0.1rem; top: 0.85rem; font-size: 1.1rem; color: var(--muted); line-height: 1; }
+  details[open] summary::after { content: '–'; }
+  summary:hover .what { color: var(--accent); }
+  .when { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.15rem; }
+  .what { display: block; font-weight: 600; font-size: 0.98rem; line-height: 1.4; }
+  .where { display: block; margin-top: 0.1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+  .desc { margin: 0 0 0.6rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
+  .more { margin: 0 0 1rem; font-size: 0.9rem; }
+
+  @media (max-width: 62rem) {
+    .home { grid-template-columns: 1fr; }
+  }
+</style>

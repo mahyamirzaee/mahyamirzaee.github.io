@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import { link, page, projects, ui, type Lang } from '../i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = await ui(lang);
+const { entry } = await page('projects', lang);
+const list = await projects(lang);
+---
+<Base title={entry.data.title} lang={lang}>
+  <h1>{entry.data.title}</h1>
+  <ol class="index">
+    {list.map((p, i) => (
+      <ProjectRow href={link(`projects/${p.slug}`, lang)} data={p.entry.data} n={i + 1} wipLabel={t.workInProgress} />
+    ))}
+  </ol>
+  {(entry.data as any).other && (
+    <section class="other">
+      <h2>{(entry.data as any).otherTitle}</h2>
+      <dl>
+        {(entry.data as any).other.map((o: any) => (
+          <div><dt>{o.name}</dt><dd>{o.text}</dd></div>
+        ))}
+      </dl>
+    </section>
+  )}
+</Base>
+<style>
+  .other { margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 2.5rem; }
+  .other h2 { margin-top: 0; font-size: 1.4rem; }
+  .other dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3.5rem; margin: 0; }
+  .other dt { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 0.3rem; }
+  .other dd { margin: 0; color: var(--muted); }
+  @media (max-width: 44rem) { .other dl { grid-template-columns: 1fr; } }
+</style>

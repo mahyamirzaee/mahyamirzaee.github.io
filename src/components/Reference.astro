@@ -1,0 +1,30 @@
+---
+// One publication reference, with my name in bold.
+import { link, type Lang } from '../i18n';
+interface Props { item: any; lang: Lang; projectLabel: string; }
+const { item, lang, projectLabel } = Astro.props;
+const [before, after] = item.me ? item.authors.split(item.me) : [item.authors, undefined];
+---
+<li class="ref">
+  <span class="year">{item.year}</span>
+  <div>
+    <p class="title">{item.title}</p>
+    <p class="authors">{before}{after !== undefined && <><strong>{item.me}</strong>{after}</>}</p>
+    <p class="venue">{item.venue}</p>
+    <p class="links">
+      {item.doi && <a href={item.doi}>{item.doi.replace('https://', '')}</a>}
+      {item.project && <a href={link(`projects/${item.project}`, lang)}>{projectLabel} →</a>}
+    </p>
+  </div>
+</li>
+<style>
+  .ref { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.8rem; border-top: 1px solid var(--line); }
+  .year { color: var(--thread); font-size: 0.9rem; padding-top: 0.3rem; }
+  p { margin: 0 0 0.35rem; }
+  .title { font-family: var(--font-head); font-size: 1.15rem; line-height: 1.35; margin-bottom: 0.6rem; }
+  .authors { color: var(--text); }
+  .authors strong { color: var(--accent); font-weight: 650; }
+  .venue { color: var(--muted); font-style: italic; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.6rem; font-size: 0.92rem; margin-top: 0.6rem; }
+  @media (max-width: 40rem) { .ref { grid-template-columns: 1fr; gap: 0.3rem; } }
+</style>

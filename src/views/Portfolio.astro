@@ -1,0 +1,155 @@
+---
+// Print portfolio: cover page + one section per selected project.
+// Made for "Print → Save as PDF" on A4. Texts: src/content/pages/<lang>/portfolio.md
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { asset, emphasis, page, projects, ui, type Lang } from '../i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = await ui(lang);
+const n = t.projectNotes;
+const { entry, fallback } = await page('portfolio', lang);
+const d = entry.data as any;
+
+const all = await projects(lang);
+const chosen = await Promise.all(
+  (d.projects ?? [])
+    .map((slug: string) => all.find((p) => p.slug === slug))
+    .filter(Boolean)
+    .map(async (p: any) => ({ ...p, Content: (await render(p.entry)).Content })),
+);
+---
+<Base title={d.title} description={d.description} lang={lang} fallback={fallback}>
+  <div class="screen-only toolbar">
+    <button type="button" onclick="window.print()">{d.printButton}</button>
+    <p>{d.printHint}</p>
+  </div>
+
+  <div class="doc">
+    <section class="sheet cover">
+      <p class="label">{d.coverLabel}</p>
+      <h1>{t.siteName}</h1>
+      <p class="tagline" set:html={emphasis(d.coverTagline)} />
+      <div class="weave-band" aria-hidden="true"></div>
+      <h2 class="contents-title">{d.contentsTitle}</h2>
+      <ol class="contents">
+        {chosen.map((p: any, i: number) => (
+          <li><span class="num">{String(i + 1).padStart(2, '0')}</span><span>{p.entry.data.title}</span><span class="yr">{p.entry.data.year}</span></li>
+        ))}
+      </ol>
+      <p class="contact">
+        <span>{t.email}</span>{t.footer.links.filter((l: any) => l.show).map((l: any) => <span>{l.url.replace('https://', '').replace('www.', '')}</span>)}
+      </p>
+    </section>
+
+    {chosen.map((p: any, i: number) => {
+      const pd = p.entry.data;
+      const Content = p.Content;
+      return (
+        <section class="sheet project">
+          <header class="p-head">
+            <p class="label"><span class="num">{String(i + 1).padStart(2, '0')}</span> {pd.context ?? ''}</p>
+            <h2>{pd.title}</h2>
+            <p class="lead">{pd.short}</p>
+            <p class="facts">
+              <span>{n.year}: {pd.year}</span>
+              {pd.status && <span>{t.workInProgress}</span>}
+              {pd.role && <span>{n.role}: {pd.role}</span>}
+            </p>
+          </header>
+          <figure class="p-hero">
+            {pd.cover
+              ? <img src={asset(pd.cover)} alt={pd.coverAlt ?? ''} />
+              : <Placeholder label={`main image for ${pd.title}`} ratio="16 / 9" />}
+          </figure>
+          <div class="p-body prose"><Content /></div>
+          {pd.gallery.length > 0 && (
+            <div class="p-gallery">
+              {pd.gallery.map((g: any) => (
+                <figure>
+                  {g.src.startsWith('TODO')
+                    ? <Placeholder label={g.alt} ratio="3 / 2" />
+                    : <img src={asset(g.src)} alt={g.alt} />}
+                  {g.caption && <figcaption>{g.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          )}
+          {pd.links.length > 0 && (
+            <p class="p-links">{pd.links.map((l: any) => <span>{l.label}: {l.url.replace('https://', '')}</span>)}</p>
+          )}
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+<style>
+  /* ── On screen: sheets of paper ── */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; margin-bottom: 3rem; padding: 1rem 1.2rem; background: var(--accent-soft); }
+  .toolbar p { margin: 0; font-size: 0.9rem; color: var(--muted); max-width: 40rem; }
+  .toolbar button { font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; padding: 0.55rem 1.1rem; cursor: pointer; }
+  .doc { display: grid; gap: 3rem; justify-items: center; }
+  .sheet { width: 100%; max-width: 52rem; background: #fff; padding: clamp(1.5rem, 5vw, 3.5rem); box-shadow: 0 1px 3px rgb(0 0 0 / 0.08), 0 8px 30px rgb(0 0 0 / 0.04); }
+
+  .label { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .num { color: var(--thread); margin-right: 0.4rem; }
+
+  .cover h1 { font-size: clamp(2.6rem, 6vw, 4rem); margin: 0 0 1.5rem; }
+  .tagline { font-family: var(--font-head); font-size: clamp(1.3rem, 2.6vw, 1.8rem); line-height: 1.35; max-width: 36rem; }
+  .tagline :global(em) { color: var(--accent); }
+  .weave-band { height: 6px; margin: 3rem 0; background: var(--twill) repeat-x; background-size: 6px 6px; opacity: 0.7; }
+  .contents-title { font-size: 1rem; font-family: var(--font-text); font-weight: 600; color: var(--muted); margin: 0 0 0.6rem; }
+  .contents { list-style: none; padding: 0; margin: 0 0 3rem; }
+  .contents li { display: grid; grid-template-columns: 2.5rem 1fr auto; gap: 1rem; padding-block: 0.7rem; border-top: 1px solid var(--line); font-family: var(--font-head); font-size: 1.2rem; }
+  .contents .num { font-family: var(--font-text); font-size: 0.9rem; padding-top: 0.2rem; }
+  .contents .yr { font-family: var(--font-text); font-size: 0.85rem; color: var(--muted); padding-top: 0.25rem; }
+  .contact { display: flex; flex-wrap: wrap; gap: 0.3rem 2rem; font-size: 0.95rem; }
+
+  .p-head h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0 0 0.6rem; }
+  .lead { font-size: 1.15rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .facts { display: flex; flex-wrap: wrap; gap: 0.2rem 1.6rem; font-size: 0.85rem; color: var(--muted); }
+  .p-hero { margin: 1.5rem 0 2rem; }
+  .p-hero img { width: 100%; max-height: 26rem; object-fit: cover; object-position: top; border: 1px solid var(--line); }
+  .p-body { max-width: none; }
+  .p-body :global(h2) { font-size: 1.35rem; margin-top: 1.6em; }
+  .p-body :global(blockquote) { font-size: 1.2rem; }
+  .p-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+  .p-gallery figure { margin: 0; }
+  .p-gallery img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: top; border: 1px solid var(--line); }
+  figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+  .p-links { display: flex; flex-wrap: wrap; gap: 0.2rem 2rem; font-size: 0.85rem; color: var(--muted); margin-top: 1.5rem; }
+
+  /* ── In print: A4, one project per page ── */
+  @page {
+    size: A4;
+    margin: 16mm 17mm 18mm;
+    @bottom-left { content: 'Mahya Mirzaee · Portfolio'; font: 8pt 'Atkinson Hyperlegible Next Variable', sans-serif; color: #55545f; }
+    @bottom-right { content: counter(page); font: 8pt 'Atkinson Hyperlegible Next Variable', sans-serif; color: #55545f; }
+  }
+  @page :first { @bottom-left { content: none; } @bottom-right { content: none; } }
+
+  @media print {
+    :global(.site-header), .screen-only, :global(.notice) { display: none !important; }
+    :global(main) { padding: 0 !important; max-width: none !important; min-height: 0 !important; }
+    :global(body) { font-size: 10pt; line-height: 1.5; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .doc { display: block; }
+    .sheet { max-width: none; padding: 0; box-shadow: none; break-before: page; }
+    .sheet.cover { break-before: auto; min-height: 255mm; display: flex; flex-direction: column; }
+    .cover h1 { font-size: 34pt; margin-top: 40mm; }
+    .tagline { font-size: 16pt; }
+    .contact { margin-top: auto; }
+    .p-head h2 { font-size: 24pt; }
+    .lead { font-size: 12pt; }
+    .p-hero img { max-height: 95mm; }
+    .p-body :global(h2) { font-size: 13pt; break-after: avoid; }
+    .p-body :global(blockquote) { font-size: 12pt; break-inside: avoid; }
+    .p-body :global(ul), .p-body :global(ol), .p-body :global(li) { break-inside: avoid; }
+    .p-gallery { gap: 5mm; }
+    .p-gallery figure, .p-hero { break-inside: avoid; }
+    :global(.ph) { min-height: 0; }
+  }
+</style>

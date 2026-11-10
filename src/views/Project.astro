@@ -1,0 +1,89 @@
+---
+// One project page as a short visual essay:
+// title and lead → large image → notes column (context, year, role, links, themes) beside the text → image gallery.
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { asset, link, ui, type Lang } from '../i18n';
+
+interface Props { lang: Lang; entry: any; fallback: boolean; }
+const { lang, entry, fallback } = Astro.props;
+const t = await ui(lang);
+const d = entry.data;
+const n = t.projectNotes;
+const { Content } = await render(entry);
+---
+<Base title={d.title} description={d.short} lang={lang} fallback={fallback}>
+  <article>
+    <p class="eyebrow"><a href={link('projects', lang)}>← {t.backToProjects}</a></p>
+    <header class="head">
+      <h1>{d.title}</h1>
+      <p class="lead">{d.short}</p>
+    </header>
+    <figure class="hero">
+      {d.cover
+        ? <img src={asset(d.cover)} alt={d.coverAlt ?? ''} />
+        : <Placeholder label={`main image for ${d.title}`} />}
+    </figure>
+    <div class="body">
+      <aside class="notes">
+        <dl>
+          {d.context && <><dt>{n.context}</dt><dd>{d.context}</dd></>}
+          <dt>{n.year}</dt><dd>{d.year}</dd>
+          {d.status && <><dt>{n.status}</dt><dd class="wip">{t.workInProgress}</dd></>}
+          {d.role && <><dt>{n.role}</dt><dd>{d.role}</dd></>}
+          {d.links.length > 0 && <><dt>{n.links}</dt><dd><ul>{d.links.map((l: any) => <li><a href={l.url} rel="noopener">{l.label} ↗</a></li>)}</ul></dd></>}
+          {d.tags.length > 0 && <><dt>{n.tags}</dt><dd><ul>{d.tags.map((tag: string) => <li>{tag}</li>)}</ul></dd></>}
+        </dl>
+      </aside>
+      <div class="prose essay"><Content /></div>
+    </div>
+    {d.gallery.length > 0 && (
+      <section class="gallery" aria-label={n.gallery}>
+        {d.gallery.map((g: any) => (
+          <figure>
+            {g.src.startsWith('TODO')
+              ? <Placeholder label={g.alt} ratio="3 / 2" />
+              : <img src={asset(g.src)} alt={g.alt} loading="lazy" />}
+            {g.caption && <figcaption>{g.caption}</figcaption>}
+          </figure>
+        ))}
+      </section>
+    )}
+  </article>
+</Base>
+<style>
+  .head { max-width: 52rem; margin-bottom: 3rem; }
+  .lead { font-size: 1.1rem; line-height: 1.5; color: var(--muted); max-width: var(--measure); }
+  .hero { margin: 0 0 4rem; background: var(--surface); }
+  .hero img { width: 100%; max-height: 78vh; object-fit: cover; object-position: top; }
+  .body { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 3rem; }
+  .notes { position: sticky; top: 2rem; align-self: start; font-size: 0.9rem; }
+  .notes::before { content: ''; display: block; height: 4px; background: var(--twill) repeat-x; background-size: 4px 4px; opacity: 0.6; margin-bottom: 1rem; }
+  dl { margin: 0; }
+  dt { color: var(--muted); font-size: 0.8rem; margin-top: 1rem; }
+  dt:first-child { margin-top: 0; }
+  dd { margin: 0.1rem 0 0; color: var(--text); }
+  dd ul { list-style: none; padding: 0; margin: 0; }
+  .wip { color: var(--accent); }
+
+  /* Text keeps a reading width; images inside the text may use the full column. */
+  .essay { max-width: none; }
+  .essay > :global(*) { max-width: var(--measure); }
+  .essay > :global(p:has(> img)) { max-width: none; }
+  .essay :global(img) { border: 1px solid var(--line); }
+  .essay :global(h2:first-child) { margin-top: 0; }
+
+  .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; margin-top: 5rem; }
+  .gallery figure { margin: 0; }
+  .gallery img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: top; border: 1px solid var(--line); }
+  figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+
+  @media (max-width: 52rem) {
+    .body { grid-template-columns: 1fr; gap: 2rem; }
+    .notes { position: static; }
+    dl { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1.2rem; }
+    dt { margin-top: 0; }
+    .gallery { grid-template-columns: 1fr; }
+  }
+</style>

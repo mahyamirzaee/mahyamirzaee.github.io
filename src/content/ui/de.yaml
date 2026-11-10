@@ -1,0 +1,36 @@
+# Interface texts in German (to be checked in Phase 6).
+siteName: Mahya Mirzaee
+siteDescription: Designerin und HCI-Forscherin.
+skipToContent: Zum Inhalt springen
+languageLabel: Sprache
+email: mahya.mirzaee@web.de
+nav:
+  projects: Designprojekte
+  publications: Publikationen
+footer:
+  cvLabel: Lebenslauf herunterladen
+  cvFile: /cv/Mahya_Mirzaee_CV.pdf
+  links:
+    - name: ResearchGate
+      icon: researchgate
+      url: https://www.researchgate.net/profile/Mahya-Mirzaee-Kharghani
+      show: true
+    - name: GitHub
+      icon: github
+      url: https://github.com/mahyaweber
+      show: false
+    - name: LinkedIn
+      icon: linkedin
+      url: https://www.linkedin.com/in/mahya-mirzaee-55a482ba
+      show: true
+notTranslated: Diese Seite gibt es noch nicht auf Deutsch. Sie lesen die englische Version.
+backToProjects: Alle Projekte
+workInProgress: In Arbeit
+projectNotes:
+  year: Jahr
+  status: Status
+  role: Meine Rolle
+  tags: Themen
+  context: Kontext
+  links: Links
+  gallery: Bilder
