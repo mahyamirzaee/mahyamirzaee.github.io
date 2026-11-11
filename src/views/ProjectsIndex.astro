@@ -21,7 +21,7 @@ const list = await projects(lang);
       <h2>{(entry.data as any).otherTitle}</h2>
       <dl>
         {(entry.data as any).other.map((o: any) => (
-          <div><dt>{o.name}</dt><dd>{o.text}</dd></div>
+          <div><dt>{o.name}</dt><dd>{o.text}{o.website && <> <a href={o.website} rel="noopener">{(entry.data as any).websiteLink} ↗</a></>}</dd></div>
         ))}
       </dl>
     </section>

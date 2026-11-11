@@ -29,8 +29,13 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
                   {e.where && <span class="where">{e.where}</span>}
                 </summary>
                 {e.text && <p class="desc">{e.text}</p>}
-                {e.link && <p class="more"><a href={href(e.link)}>{d.projectLink} →</a></p>}
               </details>
+              {(e.link || e.website) && (
+                <p class="more">
+                  {e.website && <a href={e.website} rel="noopener">{d.websiteLink} ↗</a>}
+                  {e.link && <a href={href(e.link)}>{d.projectLink} →</a>}
+                </p>
+              )}
             </li>
           ))}
         </ol>
@@ -58,7 +63,8 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
   .what { display: block; font-weight: 600; font-size: 0.98rem; line-height: 1.4; }
   .where { display: block; margin-top: 0.1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
   .desc { margin: 0 0 0.6rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
-  .more { margin: 0 0 1rem; font-size: 0.9rem; }
+  /* Links are always visible under the entry, even when it is closed */
+  .more { margin: -0.4rem 0 0.9rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
 
   @media (max-width: 62rem) {
     .home { grid-template-columns: 1fr; }

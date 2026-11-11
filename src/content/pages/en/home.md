@@ -6,6 +6,7 @@ description: Designer and HCI researcher with roots in textile design, combining
 # "link" (optional) is a project page file name from src/content/projects/en/
 experienceTitle: Experience
 projectLink: See the project
+websiteLink: Project website
 experience:
   - when: Summer 2026
     what: UI/UX Designer and Researcher (internship)
@@ -14,11 +15,13 @@ experience:
 
   - when: Oct 2025 – Apr 2026
     what: Digital Publics B04 (DFG)
+    website: https://www.mediacoop.uni-siegen.de/en/projects/b04/
     where: Student research assistant, University of Siegen
     text: A project on media practices and digital publics in Morocco and in transnational diaspora contexts. I supported the qualitative analysis of media use, communication patterns, and public engagement, using language-model-based tools.
 
   - when: Oct 2023 – Oct 2025
     what: CrossComITS (BMBF)
+    website: https://crosscomits.de/
     where: Student research assistant, University of Siegen
     link: smartphone-cafe
     text: A participatory project on digital learning and private IT security for vulnerable groups. I facilitated Smartphone Café sessions and workshops with older adults, observed how they used their smartphones, conducted interviews, analysed qualitative data, and supported the literature review for our PDC 2026 paper.
