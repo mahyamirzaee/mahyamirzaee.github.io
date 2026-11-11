@@ -10,7 +10,7 @@ import remarkBase from './src/remark-base.mjs';
 //   • https://USERNAME.github.io/            → BASE '/'
 //   • your own domain, e.g. https://mahyamirzaee.com → SITE that domain, BASE '/'
 // ─────────────────────────────────────────────────────────────
-const SITE = 'https://mahyaweber.github.io';
+const SITE = 'https://mahyamirzaee.github.io';
 const BASE = '/';
 
 export default defineConfig({
