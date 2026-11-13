@@ -2,6 +2,7 @@
 title: "Mediating Digital Security"
 short: "How older adults learn to use their smartphones safely in Smartphone Café sessions."
 year: "Oct 2023 – Oct 2025"
+listYear: "2023–2025"
 context: "CrossComITS, a BMBF-funded research project at the University of Siegen"
 role: "Student research assistant"
 tags: ["Participatory design", "Ethnography", "Digital security"]

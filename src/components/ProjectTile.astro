@@ -1,63 +1,38 @@
 ---
-// One project in the Design projects grid, shown like a framed picture on a wall:
-// a thin frame, a white mat (passe-partout) around the image, and a small label underneath.
+// One project on the Design projects page: just the picture, and under it the year and a short name.
 // The whole piece is clickable.
 import Placeholder from './Placeholder.astro';
 import TactCover from './TactCover.astro';
 import { asset } from '../i18n';
-interface Props { href: string; data: any; size: string; frame: string; wipLabel: string; }
-const { href, data, size, frame, wipLabel } = Astro.props;
+interface Props { href: string; data: any; shape: string; place?: string; wipLabel: string; }
+const { href, data, shape, place = '', wipLabel } = Astro.props;
 const external = href.startsWith('http');
 ---
-<li class:list={['tile', size]}>
-  <a class="hit" href={href} {...(external ? { rel: 'noopener' } : {})}>
-    <span class:list={['frame', frame]} aria-hidden="true">
-      <span class="mat">
-        <span class="media">
-          {data.coverAnimation === 'tact'
-            ? <TactCover />
-            : data.cover
-              ? <img src={asset(data.cover)} alt="" loading="lazy" />
-              : <Placeholder label={`image for ${data.title}`} ratio="auto" />}
-        </span>
-      </span>
+<li class="piece slot" style={`--shape:${shape};${place}`}>
+  <a href={href} {...(external ? { rel: 'noopener' } : {})}>
+    <span class="media" aria-hidden="true">
+      {data.coverAnimation === 'tact'
+        ? <TactCover />
+        : data.cover
+          ? <img src={asset(data.cover)} alt="" loading="lazy" />
+          : <Placeholder label={`image for ${data.title}`} ratio="auto" />}
     </span>
-    <span class="label">
-      <span class="title">{data.title}{external && <span class="ext" aria-hidden="true"> ↗</span>}</span>
-      <span class="short">{data.short}</span>
-      {data.status && <span class="wip">{wipLabel}</span>}
+    <span class="cap">
+      <span class="year">{data.listYear ?? data.year}{data.status && <span class="wip"> · {wipLabel}</span>}</span>
+      <span class="name">{data.title}{external && <span aria-hidden="true"> ↗</span>}</span>
     </span>
   </a>
 </li>
 <style>
-  .tile { list-style: none; }
-  .hit { display: flex; flex-direction: column; gap: 0.9rem; height: 100%; color: var(--text); text-decoration: none; }
-
-  /* the frame: thin moulding in one of three finishes */
-  .frame {
-    position: relative; flex: 1; display: flex; min-height: 20rem;
-    border: 7px solid var(--text);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12), 0 6px 16px rgb(0 0 0 / 0.08);
-    transition: box-shadow .3s ease;
-  }
-  .frame.white { border-color: #ffffff; box-shadow: 0 0 0 1px #e6e4ea, 0 6px 16px rgb(0 0 0 / 0.08); }
-  .frame.oak   { border-color: #d2b48c; }
-  .hit:hover .frame { box-shadow: 0 1px 2px rgb(0 0 0 / 0.14), 0 12px 28px rgb(0 0 0 / 0.14); }
-
-  /* the white mat around the picture */
-  .mat { flex: 1; display: flex; background: #ffffff; padding: clamp(1.2rem, 3.2vw, 2.6rem); }
-  .media { position: relative; flex: 1; display: block; overflow: hidden; background: var(--bg); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06); }
-  .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .piece { list-style: none; }
+  a { display: block; color: var(--text); text-decoration: none; }
+  .media { position: relative; display: block; aspect-ratio: var(--shape); overflow: hidden; background: var(--surface); }
+  .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s ease; }
+  a:hover .media img { transform: scale(1.02); }
   .media :global(.ph) { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
-
-  /* the small label under the frame */
-  .label { display: flex; flex-direction: column; gap: 0.2rem; max-width: 32rem; }
-  .title { font-family: var(--font-head); font-size: 1.15rem; line-height: 1.3; }
-  .hit:hover .title { color: var(--accent); }
-  .ext { font-family: var(--font-text); font-size: 0.85rem; color: var(--muted); }
-  .short { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
-  .wip { font-size: 0.8rem; color: var(--accent); }
-
-  .tall .frame { min-height: 36rem; }
-  @media (max-width: 40rem) { .frame { min-height: 16rem; } .tall .frame { min-height: 22rem; } }
+  .cap { display: flex; flex-direction: column; gap: 0.1rem; margin-top: 0.6rem; font-size: 0.85rem; line-height: 1.4; }
+  .year { font-weight: 600; }
+  .wip { font-weight: 400; color: var(--accent); }
+  .name { color: var(--text); }
+  a:hover .name { color: var(--accent); }
 </style>

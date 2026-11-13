@@ -8,20 +8,21 @@ const { lang } = Astro.props;
 const t = await ui(lang);
 const { entry } = await page('projects', lang);
 const list = await projects(lang);
-// Card sizes repeat in this rhythm: wide, tall, small, small, half, half
-const rhythm = ['wide', 'tall', 'small', 'small', 'half', 'half'];
-// Frame finishes repeat like a mixed gallery wall: black, white, oak
-const frames = ['black', 'white', 'oak', 'black', 'oak', 'white'];
+// Pictures are placed freely, three in a row, with different sizes and shapes.
+// The rhythm repeats every six projects: width of the picture, its shape, and how far it sits down.
+const widths  = ['36%', '24%', '28%', '28%', '30%', '25%'];
+const shapes  = ['4 / 3', '5 / 4', '1 / 1', '16 / 10', '3 / 4', '4 / 3'];
+const offsets = ['0rem', '0rem', '2.5rem', '1.5rem', '0rem', '4rem'];
 ---
 <Base title={entry.data.title} lang={lang}>
   <h1>{entry.data.title}</h1>
-  <ul class="bento">
+  <ul class="wall">
     {list.map((p, i) => (
       <ProjectTile
         href={p.entry.data.href ?? link(`projects/${p.slug}`, lang)}
         data={p.entry.data}
-        size={rhythm[i % rhythm.length]}
-        frame={frames[i % frames.length]}
+        shape={shapes[i % 6]}
+        place={`--w:${widths[i % 6]};--down:${offsets[i % 6]}`}
         wipLabel={t.workInProgress} />
     ))}
   </ul>
@@ -37,25 +38,19 @@ const frames = ['black', 'white', 'oak', 'black', 'oak', 'white'];
   )}
 </Base>
 <style>
-  /* Card grid: 6 columns; card sizes come from the rhythm above */
-  .bento {
-    list-style: none; padding: 0; margin: 2.5rem 0 0;
-    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-auto-rows: auto; grid-auto-flow: dense; gap: 3rem 2.5rem;
+  /* Pictures side by side, three per row, with free sizes and small vertical shifts */
+  .wall {
+    list-style: none; padding: 0; margin: 3rem 0 0;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
+    row-gap: 4.5rem;
   }
-  .bento :global(.wide)  { grid-column: span 4; }
-  .bento :global(.tall)  { grid-column: span 2; grid-row: span 2; }
-  .bento :global(.small) { grid-column: span 2; }
-  .bento :global(.half)  { grid-column: span 3; }
-  @media (max-width: 62rem) {
-    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .bento :global(.wide), .bento :global(.half) { grid-column: span 2; }
-    .bento :global(.tall)  { grid-column: span 1; grid-row: span 2; }
-    .bento :global(.small) { grid-column: span 1; }
+  .wall :global(.slot) { width: var(--w); margin-top: var(--down); }
+  @media (max-width: 52rem) {
+    .wall { row-gap: 3rem; }
+    .wall :global(.slot) { width: 47%; margin-top: 0; }
   }
-  @media (max-width: 40rem) {
-    .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .bento :global(.wide), .bento :global(.half), .bento :global(.tall), .bento :global(.small) { grid-column: auto; grid-row: auto; }
+  @media (max-width: 32rem) {
+    .wall :global(.slot) { width: 100%; }
   }
   .other { margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 2.5rem; }
   .other h2 { margin-top: 0; font-size: 1.4rem; }
