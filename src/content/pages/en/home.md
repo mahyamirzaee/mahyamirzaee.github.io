@@ -5,7 +5,8 @@ description: Designer and HCI researcher with roots in textile design, combining
 # The list on the right side, newest first.
 # "link" (optional) is a project page file name from src/content/projects/en/
 experienceTitle: Experience
-projectLink: See the project
+# Text of the "see the project" links under Experience. Leave it empty ("") to hide them.
+projectLink: ""
 websiteLink: Project website
 experience:
   - when: Summer 2026

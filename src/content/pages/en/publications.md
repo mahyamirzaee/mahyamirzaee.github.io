@@ -28,5 +28,6 @@ thesis:
   venue: M.Sc. thesis, Human-Computer Interaction, University of Siegen.
   project: from-loneliness-to-belonging
 
-projectLink: About the project
+# Text of the link to each project page. Leave it empty ("") to hide these links.
+projectLink: ""
 ---

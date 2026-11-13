@@ -32,10 +32,10 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
                 </summary>
                 {e.text && <p class="desc">{e.text}</p>}
               </details>
-              {(e.link || e.website) && (
+              {((e.link && d.projectLink) || e.website) && (
                 <p class="more">
                   {e.website && <a href={e.website} rel="noopener">{d.websiteLink} ↗</a>}
-                  {e.link && <a href={href(e.link)}>{d.projectLink} →</a>}
+                  {e.link && d.projectLink && <a href={href(e.link)}>{d.projectLink} →</a>}
                 </p>
               )}
             </li>
@@ -46,20 +46,20 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
   </div>
 </Base>
 <style>
-  .home { display: grid; grid-template-columns: minmax(0, 46rem) minmax(16rem, 1fr); gap: 3rem clamp(2.5rem, 6vw, 5.5rem); align-items: start; }
+  .home { display: grid; grid-template-columns: minmax(0, 44.5rem) minmax(16rem, 1fr); gap: 3rem clamp(2.5rem, 6vw, 5.5rem); align-items: start; }
   .text { line-height: 1.75; }
   .text :global(p) { margin-bottom: 1.3em; }
   .text :global(em) { font-style: italic; color: var(--accent); }
 
-  .contact-wrap { margin-bottom: 3rem; }
+  .contact-wrap { margin-bottom: 2rem; }
   .exp h2 { font-family: var(--font-text); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0.4rem 0 1.2rem; }
   .exp ol { list-style: none; margin: 0; padding: 0; }
   .exp > ol > li { border-top: 1px solid var(--line); }
   .exp > ol > li:last-child { border-bottom: 1px solid var(--line); }
   /* Each entry opens and closes on click; the + turns into – when open */
-  summary { list-style: none; cursor: pointer; position: relative; padding: 0.9rem 1.6rem 0.9rem 0; display: block; }
+  summary { list-style: none; cursor: pointer; position: relative; padding: 0.6rem 1.6rem 0.6rem 0; display: block; }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: '+'; position: absolute; right: 0.1rem; top: 0.85rem; font-size: 1.1rem; color: var(--muted); line-height: 1; }
+  summary::after { content: '+'; position: absolute; right: 0.1rem; top: 0.55rem; font-size: 1.1rem; color: var(--muted); line-height: 1; }
   details[open] summary::after { content: '–'; }
   summary:hover .what { color: var(--accent); }
   .when { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.15rem; }
@@ -67,7 +67,7 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
   .where { display: block; margin-top: 0.1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
   .desc { margin: 0 0 0.6rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
   /* Links are always visible under the entry, even when it is closed */
-  .more { margin: -0.4rem 0 0.9rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+  .more { margin: -0.3rem 0 0.6rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
 
   @media (max-width: 62rem) {
     .home { grid-template-columns: 1fr; }

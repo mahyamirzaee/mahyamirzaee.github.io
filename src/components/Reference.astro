@@ -13,7 +13,7 @@ const [before, after] = item.me ? item.authors.split(item.me) : [item.authors, u
     <p class="venue">{item.venue}</p>
     <p class="links">
       {item.doi && <a href={item.doi}>{item.doi.replace('https://', '')}</a>}
-      {item.project && <a href={link(`projects/${item.project}`, lang)}>{projectLabel} →</a>}
+      {item.project && projectLabel && <a href={link(`projects/${item.project}`, lang)}>{projectLabel} →</a>}
     </p>
   </div>
 </li>
