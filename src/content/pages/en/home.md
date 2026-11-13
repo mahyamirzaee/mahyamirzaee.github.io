@@ -11,6 +11,7 @@ experience:
   - when: Summer 2026
     what: UI/UX Designer and Researcher (internship)
     where: Robofinder, remote
+    link: robofinder-internship
     text: I conducted qualitative interviews with partner agencies and turned their usability feedback into a prioritised UX roadmap. I redesigned the hero section, navigation, and conversion flows to improve B2B onboarding, wireframed user journeys, and built high-fidelity prototypes with Claude Code. I also audited the site’s UX, restructured the CMS blog, and refined the English copy and localisation.
 
   - when: Oct 2025 – Apr 2026
@@ -23,11 +24,11 @@ experience:
     what: CrossComITS (BMBF)
     website: https://crosscomits.de/
     where: Student research assistant, University of Siegen
-    link: smartphone-cafe
     text: A participatory project on digital learning and private IT security for vulnerable groups. I facilitated Smartphone Café sessions and workshops with older adults, observed how they used their smartphones, conducted interviews, analysed qualitative data, and supported the literature review for our PDC 2026 paper.
 
   - when: Oct 2023 – Oct 2025
     what: NEBULA (BMBF)
+    website: https://crosscomits.de/
     where: Student research assistant, University of Siegen
     text: A project on participatory approaches to digital inclusion and user-centred technologies, running in parallel with CrossComITS. I coordinated research workshops and concept testing sessions, documented user feedback, and synthesised the qualitative data into concise findings.
 
