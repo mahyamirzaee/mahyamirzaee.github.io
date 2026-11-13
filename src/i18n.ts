@@ -44,7 +44,8 @@ export async function page(name: string, lang: Lang) {
 
 /** Visible projects for one language (English used where German is missing). */
 export async function projects(lang: Lang) {
-  const all = await getCollection('projects', (p) => !p.data.hidden);
+  // hidden: never shown. draft: shown only in the local preview (npm run dev), never on the live site.
+  const all = await getCollection('projects', (p) => !p.data.hidden && (import.meta.env.DEV || !p.data.draft));
   const en = all.filter((p) => p.id.startsWith('en/'));
   return en
     .map((p) => {

@@ -3,6 +3,8 @@ title: Design projects
 
 # Short list under the project grid (no separate pages)
 otherTitle: Other research projects
+# Not shown on the live site for now (only in the local preview). Delete the next line to show it.
+otherDraft: true
 other:
   - name: NEBULA (BMBF)
     text: Participatory approaches to digital inclusion and user-centred technologies. I coordinated research workshops and concept testing sessions, and synthesised qualitative data.

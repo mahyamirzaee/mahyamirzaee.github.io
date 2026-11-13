@@ -26,9 +26,9 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
         wipLabel={t.workInProgress} />
     ))}
   </ul>
-  {(entry.data as any).other && (
+  {(entry.data as any).other && (import.meta.env.DEV || !(entry.data as any).otherDraft) && (
     <section class="other">
-      <h2>{(entry.data as any).otherTitle}</h2>
+      <h2>{(entry.data as any).otherTitle}{import.meta.env.DEV && (entry.data as any).otherDraft && <span class="draft"> · draft (not online)</span>}</h2>
       <dl>
         {(entry.data as any).other.map((o: any) => (
           <div><dt>{o.name}</dt><dd>{o.text}{o.website && <> <a href={o.website} rel="noopener">{(entry.data as any).websiteLink} ↗</a></>}</dd></div>
@@ -56,6 +56,7 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
   }
   .other { margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 2.5rem; }
   .other h2 { margin-top: 0; font-size: 1.4rem; }
+  .draft { font-family: var(--font-text); font-size: 0.8rem; color: #b3541e; }
   .other dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3.5rem; margin: 0; }
   .other dt { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 0.3rem; }
   .other dd { margin: 0; color: var(--muted); }

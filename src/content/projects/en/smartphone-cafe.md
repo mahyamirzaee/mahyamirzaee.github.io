@@ -7,6 +7,8 @@ context: "CrossComITS, a BMBF-funded research project at the University of Siege
 role: "Student research assistant"
 tags: ["Participatory design", "Ethnography", "Digital security"]
 order: 3
+# Not finished yet: only visible in the local preview. Delete the next line to publish it.
+draft: true
 links:
   - label: "CrossComITS project website"
     url: "https://crosscomits.de/"

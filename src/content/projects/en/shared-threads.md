@@ -6,6 +6,8 @@ status: "Work in progress"
 context: "Personal physical computing exploration"
 tags: ["Physical computing", "Textile", "Tangible interaction"]
 order: 5
+# Not finished yet: only visible in the local preview. Delete the next line to publish it.
+draft: true
 gallery:
   - src: "TODO"
     alt: "add photo of the woven textile (50 × 20 cm)"

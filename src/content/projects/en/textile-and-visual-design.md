@@ -6,6 +6,8 @@ context: "B.A. Textile Design, Art University of Tehran, and Maya Studio, Tehran
 role: "Designer; ran my own studio, Maya Studio (2016–2021)"
 tags: ["Textile design", "Weaving", "Visual design"]
 order: 6
+# Not finished yet: only visible in the local preview. Delete the next line to publish it.
+draft: true
 gallery:
   - src: "TODO"
     alt: "add photo of a hand-woven textile"

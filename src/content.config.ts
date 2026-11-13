@@ -32,6 +32,7 @@ const projects = defineCollection({
     coverAlt: z.string().optional(),
     order: z.number().default(99),        // smaller number = shown first
     hidden: z.boolean().default(false),   // true = not shown anywhere
+    draft: z.boolean().default(false),    // true = only in the local preview, not on the live site (delete the line when finished)
     inPortfolio: z.boolean().default(false), // true = included in the print portfolio
   }),
 });

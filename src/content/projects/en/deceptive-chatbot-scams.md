@@ -6,6 +6,8 @@ context: "AntiScam project"
 role: "Co-author [TODO: confirm role]"
 tags: ["Interview study", "Online fraud", "Chatbots"]
 order: 4
+# Not finished yet: only visible in the local preview. Delete the next line to publish it.
+draft: true
 links:
   - label: "Paper at CHI EA 2025 (DOI)"
     url: "https://doi.org/10.1145/3706599.3720152"

@@ -21,7 +21,7 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
           : <Placeholder label={`image for ${data.title}`} ratio="auto" />}
     </span>
     <span class="cap">
-      <b>{data.listYear ?? data.year}</b> {data.listTitle ?? data.title}{data.status && <span class="wip"> · {wipLabel}</span>}
+      <b>{data.listYear ?? data.year}</b> {data.listTitle ?? data.title}{data.status && <span class="wip"> · {wipLabel}</span>}{import.meta.env.DEV && data.draft && <span class="draft"> · draft (not online)</span>}
     </span>
   </a>
 </li>
@@ -39,5 +39,6 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
   .cap { display: block; margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cap b { font-weight: 600; margin-right: 0.35rem; }
   .wip { color: var(--accent); }
+  .draft { color: #b3541e; }
   a:hover .cap { color: var(--accent); }
 </style>
