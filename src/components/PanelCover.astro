@@ -21,6 +21,7 @@ const crop = (p: number[]) => {
 <script>
   document.querySelectorAll<HTMLElement>('.panels').forEach((box) => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (box.querySelectorAll('.panel').length < 2) return; // one part: nothing to swap
     const parts = [...box.querySelectorAll<HTMLElement>('.panel')];
     const every = Number(box.dataset.every) || 2000;
     let i = 0;
