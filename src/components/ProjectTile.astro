@@ -31,6 +31,9 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
   .media { position: relative; display: block; aspect-ratio: var(--shape); overflow: hidden; background: var(--surface); }
   .media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s ease; }
   a:hover .media > img { transform: scale(1.02); }
+  /* the cropped comic panel (Safe Space) moves the same way on hover */
+  .media :global(.panels) { transition: transform .6s ease; }
+  a:hover .media :global(.panels) { transform: scale(1.02); }
   .media :global(.ph) { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
   /* one small line under the picture */
   .cap { display: block; margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
