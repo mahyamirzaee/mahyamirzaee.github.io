@@ -7,6 +7,13 @@ role: "Sole researcher and designer: interviews, analysis, design fictions, prot
 tags: ["Master’s thesis", "Qualitative research", "Design fiction", "LLM companion"]
 order: 1
 cover: "/images/safespace/home.png"
+# On the Design projects page: short name, and the comic strip shown panel by panel
+listTitle: "Safe Space"
+coverPanels:
+  src: "/images/safespace/comic.webp"
+  size: [1343, 784]
+  panels: [[44, 29, 416, 660], [476, 29, 416, 660], [912, 29, 416, 660]]
+  every: 2000
 coverAlt: "Start screen of the SafeSpace prototype with three areas: write your thoughts, stories, and find help."
 links:
   - label: "SafeSpace live prototype"

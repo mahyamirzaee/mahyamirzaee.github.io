@@ -18,6 +18,15 @@ const projects = defineCollection({
     coverAnimation: z.string().optional(),// "tact" = the animated woven-thread cover
     href: z.string().optional(),          // project lives on its own page elsewhere: the card links there
     listYear: z.string().optional(),      // short year shown under the picture on Design projects (default: year)
+    listTitle: z.string().optional(),     // short name shown under the picture on Design projects (default: title)
+    listShape: z.string().optional(),     // picture shape on Design projects, e.g. "16 / 9" (default: the page rhythm)
+    // Cover made of parts of one picture, shown one after another (e.g. comic panels):
+    coverPanels: z.object({
+      src: z.string(),
+      size: z.array(z.number()),               // [width, height] of the whole picture in pixels
+      panels: z.array(z.array(z.number())),    // each part: [left, top, width, height] in pixels
+      every: z.number().optional(),            // milliseconds per part (default 2000)
+    }).optional(),
     coverAlt: z.string().optional(),
     order: z.number().default(99),        // smaller number = shown first
     hidden: z.boolean().default(false),   // true = not shown anywhere

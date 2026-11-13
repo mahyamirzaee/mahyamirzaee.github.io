@@ -1,25 +1,27 @@
 ---
-// One project on the Design projects page: just the picture, and under it the year and a short name.
+// One project on the Design projects page: just the picture, and under it one small line with the year and a short name.
 // The whole piece is clickable.
 import Placeholder from './Placeholder.astro';
-import TactCover from './TactCover.astro';
+import PanelCover from './PanelCover.astro';
 import { asset } from '../i18n';
 interface Props { href: string; data: any; shape: string; place?: string; wipLabel: string; }
 const { href, data, shape, place = '', wipLabel } = Astro.props;
 const external = href.startsWith('http');
+const p = data.coverPanels;
+// a panel slideshow takes the shape of its panels; otherwise the project's own shape or the page rhythm
+const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?? shape);
 ---
-<li class="piece slot" style={`--shape:${shape};${place}`}>
+<li class="piece slot" style={`--shape:${boxShape};${place}`}>
   <a href={href} {...(external ? { rel: 'noopener' } : {})}>
     <span class="media" aria-hidden="true">
-      {data.coverAnimation === 'tact'
-        ? <TactCover />
+      {p
+        ? <PanelCover src={asset(p.src)} size={p.size} panels={p.panels} every={p.every} />
         : data.cover
           ? <img src={asset(data.cover)} alt="" loading="lazy" />
           : <Placeholder label={`image for ${data.title}`} ratio="auto" />}
     </span>
     <span class="cap">
-      <span class="year">{data.listYear ?? data.year}{data.status && <span class="wip"> · {wipLabel}</span>}</span>
-      <span class="name">{data.title}{external && <span aria-hidden="true"> ↗</span>}</span>
+      <b>{data.listYear ?? data.year}</b> {data.listTitle ?? data.title}{data.status && <span class="wip"> · {wipLabel}</span>}
     </span>
   </a>
 </li>
@@ -27,12 +29,12 @@ const external = href.startsWith('http');
   .piece { list-style: none; }
   a { display: block; color: var(--text); text-decoration: none; }
   .media { position: relative; display: block; aspect-ratio: var(--shape); overflow: hidden; background: var(--surface); }
-  .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s ease; }
-  a:hover .media img { transform: scale(1.02); }
+  .media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s ease; }
+  a:hover .media > img { transform: scale(1.02); }
   .media :global(.ph) { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
-  .cap { display: flex; flex-direction: column; gap: 0.1rem; margin-top: 0.6rem; font-size: 0.85rem; line-height: 1.4; }
-  .year { font-weight: 600; }
-  .wip { font-weight: 400; color: var(--accent); }
-  .name { color: var(--text); }
-  a:hover .name { color: var(--accent); }
+  /* one small line under the picture */
+  .cap { display: block; margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cap b { font-weight: 600; margin-right: 0.35rem; }
+  .wip { color: var(--accent); }
+  a:hover .cap { color: var(--accent); }
 </style>

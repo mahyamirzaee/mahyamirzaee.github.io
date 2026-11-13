@@ -10,12 +10,12 @@ const { entry } = await page('projects', lang);
 const list = await projects(lang);
 // Pictures are placed freely, three in a row, with different sizes and shapes.
 // The rhythm repeats every six projects: width of the picture, its shape, and how far it sits down.
-const widths  = ['36%', '24%', '28%', '28%', '30%', '25%'];
+const widths  = ['25%', '42%', '25%', '28%', '30%', '25%'];
 const shapes  = ['4 / 3', '5 / 4', '1 / 1', '16 / 10', '3 / 4', '4 / 3'];
-const offsets = ['0rem', '0rem', '2.5rem', '1.5rem', '0rem', '4rem'];
+const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
 ---
 <Base title={entry.data.title} lang={lang}>
-  <h1>{entry.data.title}</h1>
+  <h1 class="page-title">{entry.data.title}</h1>
   <ul class="wall">
     {list.map((p, i) => (
       <ProjectTile
@@ -38,6 +38,7 @@ const offsets = ['0rem', '0rem', '2.5rem', '1.5rem', '0rem', '4rem'];
   )}
 </Base>
 <style>
+  .page-title { font-size: 1.3rem; margin-bottom: 0; }
   /* Pictures side by side, three per row, with free sizes and small vertical shifts */
   .wall {
     list-style: none; padding: 0; margin: 3rem 0 0;

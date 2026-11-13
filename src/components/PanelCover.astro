@@ -1,0 +1,40 @@
+---
+// Shows one picture as a slideshow of its parts (e.g. the panels of a comic strip).
+// Each part is cut out with CSS only, so the original file stays as it is.
+// It changes to the next part every few seconds. With "reduce motion" on, it shows the first part.
+interface Props { src: string; size: number[]; panels: number[][]; every?: number; }
+const { src, size, panels, every = 2000 } = Astro.props;
+const [W, H] = size;
+const [, , w0, h0] = panels[0];
+// position of each part, as percentages of the visible box
+const crop = (p: number[]) => {
+  const [x, y, w, h] = p;
+  return `width:${(W / w) * 100}%;height:${(H / h) * 100}%;left:${(-x / w) * 100}%;top:${(-y / h) * 100}%`;
+};
+---
+<span class="panels" style={`aspect-ratio:${w0} / ${h0}`} data-every={every}>
+  {panels.map((p, i) => (
+    <span class:list={['panel', { on: i === 0 }]}><img src={src} alt="" style={crop(p)} loading="lazy" /></span>
+  ))}
+</span>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.panels').forEach((box) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const parts = [...box.querySelectorAll<HTMLElement>('.panel')];
+    const every = Number(box.dataset.every) || 2000;
+    let i = 0;
+    setInterval(() => {
+      parts[i].classList.remove('on');
+      i = (i + 1) % parts.length;
+      parts[i].classList.add('on');
+    }, every);
+  });
+</script>
+
+<style>
+  .panels { position: absolute; inset: 0; display: block; overflow: hidden; }
+  .panel { position: absolute; inset: 0; overflow: hidden; opacity: 0; transition: opacity .6s ease; }
+  .panel.on { opacity: 1; }
+  .panel img { position: absolute; max-width: none; }
+</style>
