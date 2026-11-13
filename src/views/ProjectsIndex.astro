@@ -15,7 +15,7 @@ const shapes  = ['4 / 3', '5 / 4', '1 / 1', '16 / 10', '3 / 4', '4 / 3'];
 const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
 ---
 <Base title={entry.data.title} lang={lang}>
-  <h1 class="page-title">{entry.data.title}</h1>
+  <h1 class="visually-hidden">{entry.data.title}</h1>
   <ul class="wall">
     {list.map((p, i) => (
       <ProjectTile
@@ -38,10 +38,11 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
   )}
 </Base>
 <style>
-  .page-title { font-size: 1.3rem; margin-bottom: 0; }
+  /* the heading stays for screen readers and search engines, but is not shown */
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   /* Pictures side by side, three per row, with free sizes and small vertical shifts */
   .wall {
-    list-style: none; padding: 0; margin: 3rem 0 0;
+    list-style: none; padding: 0; margin: 0;
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
     row-gap: 4.5rem;
   }
