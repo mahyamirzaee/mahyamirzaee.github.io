@@ -19,7 +19,7 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
   <ul class="wall">
     {list.map((p, i) => (
       <ProjectTile
-        href={p.entry.data.href ?? link(`projects/${p.slug}`, lang)}
+        href={p.entry.data.listHref ?? p.entry.data.href ?? link(`projects/${p.slug}`, lang)}
         data={p.entry.data}
         shape={shapes[i % 6]}
         place={`--w:${widths[i % 6]};--down:${offsets[i % 6]}`}

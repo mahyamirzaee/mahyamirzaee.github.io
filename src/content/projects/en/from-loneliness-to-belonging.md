@@ -9,6 +9,8 @@ order: 1
 cover: "/images/safespace/home.png"
 # On the Design projects page: short name, and the comic strip shown panel by panel
 listTitle: "Safe Space"
+# The Design projects card opens the separate SafeSpace project page; this thesis page still exists for Home and Publications.
+listHref: "https://mahyamirzaee.github.io/safespace/"
 coverPanels:
   src: "/images/safespace/comic.webp"
   size: [1343, 784]

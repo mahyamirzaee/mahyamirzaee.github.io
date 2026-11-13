@@ -17,6 +17,7 @@ const projects = defineCollection({
     cover: z.string().optional(),         // e.g. /images/safespace/home.png (file inside public/)
     coverAnimation: z.string().optional(),// "tact" = the animated woven-thread cover
     href: z.string().optional(),          // project lives on its own page elsewhere: the card links there
+    listHref: z.string().optional(),      // only the Design projects card links here; the project page itself still exists
     listYear: z.string().optional(),      // short year shown under the picture on Design projects (default: year)
     listTitle: z.string().optional(),     // short name shown under the picture on Design projects (default: title)
     listShape: z.string().optional(),     // picture shape on Design projects, e.g. "16 / 9" (default: the page rhythm)
