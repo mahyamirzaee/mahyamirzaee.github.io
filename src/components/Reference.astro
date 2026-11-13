@@ -18,13 +18,13 @@ const [before, after] = item.me ? item.authors.split(item.me) : [item.authors, u
   </div>
 </li>
 <style>
-  .ref { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.8rem; border-top: 1px solid var(--line); }
-  .year { color: var(--thread); font-size: 0.9rem; padding-top: 0.3rem; }
+  .ref { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.4rem; border-top: 1px solid var(--line); font-size: 0.88rem; line-height: 1.55; }
+  .year { color: var(--muted); font-size: 0.8rem; font-weight: 600; padding-top: 0.15rem; }
   p { margin: 0 0 0.35rem; }
-  .title { font-family: var(--font-head); font-size: 1.15rem; line-height: 1.35; margin-bottom: 0.6rem; }
+  .title { font-family: var(--font-head); font-size: 1rem; line-height: 1.35; margin-bottom: 0.4rem; }
   .authors { color: var(--text); }
   .authors strong { color: var(--accent); font-weight: 650; }
   .venue { color: var(--muted); font-style: italic; }
-  .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.6rem; font-size: 0.92rem; margin-top: 0.6rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.6rem; font-size: 0.82rem; margin-top: 0.5rem; }
   @media (max-width: 40rem) { .ref { grid-template-columns: 1fr; gap: 0.3rem; } }
 </style>

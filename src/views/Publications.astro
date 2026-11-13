@@ -10,7 +10,7 @@ const { entry, fallback } = await page('publications', lang);
 const d = entry.data as any;
 ---
 <Base title={d.title} description={d.description} lang={lang} fallback={fallback}>
-  <h1>{d.title}</h1>
+  <h1 class="page-title">{d.title}</h1>
   {d.intro && <p class="intro">{d.intro}</p>}
   <ol class="refs">{d.items.map((item: any) => <Reference item={item} lang={lang} projectLabel={d.projectLink} />)}</ol>
   {d.thesis && (
@@ -23,5 +23,6 @@ const d = entry.data as any;
 <style>
   .intro { color: var(--muted); max-width: var(--measure); margin-bottom: 3rem; }
   .refs { list-style: none; padding: 0; margin: 0; max-width: 54rem; border-bottom: 1px solid var(--line); }
-  h2 { font-size: 1.4rem; margin-top: 4rem; }
+  .page-title { font-size: 1.3rem; margin-bottom: 2.5rem; }
+  h2 { font-size: 1rem; margin-top: 3.5rem; }
 </style>
