@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectRow from '../components/ProjectRow.astro';
+import ProjectTile from '../components/ProjectTile.astro';
 import { link, page, projects, ui, type Lang } from '../i18n';
 
 interface Props { lang: Lang; }
@@ -8,14 +8,20 @@ const { lang } = Astro.props;
 const t = await ui(lang);
 const { entry } = await page('projects', lang);
 const list = await projects(lang);
+// Card sizes repeat in this rhythm: wide, tall, small, small, half, half
+const rhythm = ['wide', 'tall', 'small', 'small', 'half', 'half'];
 ---
 <Base title={entry.data.title} lang={lang}>
   <h1>{entry.data.title}</h1>
-  <ol class="index">
+  <ul class="bento">
     {list.map((p, i) => (
-      <ProjectRow href={link(`projects/${p.slug}`, lang)} data={p.entry.data} n={i + 1} wipLabel={t.workInProgress} />
+      <ProjectTile
+        href={p.entry.data.href ?? link(`projects/${p.slug}`, lang)}
+        data={p.entry.data}
+        size={rhythm[i % rhythm.length]}
+        wipLabel={t.workInProgress} />
     ))}
-  </ol>
+  </ul>
   {(entry.data as any).other && (
     <section class="other">
       <h2>{(entry.data as any).otherTitle}</h2>
@@ -28,6 +34,26 @@ const list = await projects(lang);
   )}
 </Base>
 <style>
+  /* Card grid: 6 columns; card sizes come from the rhythm above */
+  .bento {
+    list-style: none; padding: 0; margin: 2.5rem 0 0;
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(19rem, auto); grid-auto-flow: dense; gap: 1rem;
+  }
+  .bento :global(.wide)  { grid-column: span 4; }
+  .bento :global(.tall)  { grid-column: span 2; grid-row: span 2; }
+  .bento :global(.small) { grid-column: span 2; }
+  .bento :global(.half)  { grid-column: span 3; }
+  @media (max-width: 62rem) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bento :global(.wide), .bento :global(.half) { grid-column: span 2; }
+    .bento :global(.tall)  { grid-column: span 1; grid-row: span 2; }
+    .bento :global(.small) { grid-column: span 1; }
+  }
+  @media (max-width: 40rem) {
+    .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .bento :global(.wide), .bento :global(.half), .bento :global(.tall), .bento :global(.small) { grid-column: auto; grid-row: auto; }
+  }
   .other { margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 2.5rem; }
   .other h2 { margin-top: 0; font-size: 1.4rem; }
   .other dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 3.5rem; margin: 0; }

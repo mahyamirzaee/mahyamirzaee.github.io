@@ -1,0 +1,107 @@
+---
+// Animated cover for TACT, drawn in the style of the prototype:
+// indigo warp threads that gently sway, and lilac weft rows that weave in, row by row, then rest and start again.
+// With "reduce motion" switched on in the system, it shows one still woven frame.
+---
+<canvas class="tact-cover" aria-hidden="true"></canvas>
+
+<script>
+  const INDIGO = [38, 48, 127];
+  const LILAC = [179, 173, 216];
+  const PAPER = '#fbfaf8';
+
+  document.querySelectorAll<HTMLCanvasElement>('canvas.tact-cover').forEach((canvas) => {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w = 0, h = 0, dpr = 1;
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+
+    const GAP = 9;          // space between warp threads
+    const ROW = 7;          // height of one weft row
+    const CYCLE = 16000;    // one full weave cycle (ms)
+
+    const draw = (t: number) => {
+      ctx.fillStyle = PAPER;
+      ctx.fillRect(0, 0, w, h);
+      const cols = Math.floor((w - GAP) / GAP);
+      const x0 = (w - (cols - 1) * GAP) / 2;
+      const maxRows = Math.floor((h * 0.55) / ROW);
+      const phase = (t % CYCLE) / CYCLE;
+      // weave for 75% of the cycle, rest, then fade out
+      const rows = Math.floor(Math.min(1, phase / 0.75) * maxRows);
+      const fade = phase > 0.9 ? 1 - (phase - 0.9) / 0.1 : 1;
+      const fell = h - 14 - rows * ROW; // the top edge of the cloth
+
+      // warp threads
+      for (let i = 0; i < cols; i++) {
+        const x = x0 + i * GAP;
+        const sway = Math.sin(t / 1400 + i * 0.35) * 2.2;
+        const a = 0.35 + 0.35 * ((i * 7) % 5) / 4;
+        ctx.strokeStyle = `rgba(${INDIGO[0]},${INDIGO[1]},${INDIGO[2]},${a})`;
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.quadraticCurveTo(x + sway, fell / 2, x, fell);
+        ctx.lineTo(x, h);
+        ctx.stroke();
+      }
+
+      // woven rows (plain weave: over one, under one)
+      for (let r = 0; r < rows; r++) {
+        const y = h - 14 - (r + 0.5) * ROW;
+        const newest = r === rows - 1 && phase < 0.75;
+        ctx.strokeStyle = `rgba(${LILAC[0]},${LILAC[1]},${LILAC[2]},${(newest ? 1 : 0.9) * fade})`;
+        ctx.lineWidth = ROW - 2;
+        ctx.beginPath();
+        ctx.moveTo(x0 - 4, y);
+        ctx.lineTo(x0 + (cols - 1) * GAP + 4, y);
+        ctx.stroke();
+        // warp lying on top of the weft every second thread, shifting each row
+        ctx.strokeStyle = `rgba(${INDIGO[0]},${INDIGO[1]},${INDIGO[2]},${0.85 * fade})`;
+        ctx.lineWidth = 1.6;
+        for (let i = r % 2; i < cols; i += 2) {
+          const x = x0 + i * GAP;
+          ctx.beginPath();
+          ctx.moveTo(x, y - ROW / 2 + 1);
+          ctx.lineTo(x, y + ROW / 2 - 1);
+          ctx.stroke();
+        }
+      }
+
+      // light travelling along the newest row
+      if (rows > 0 && phase < 0.75) {
+        const y = fell + ROW / 2;
+        const lx = x0 + ((t / 6) % ((cols - 1) * GAP));
+        const g = ctx.createRadialGradient(lx, y, 0, lx, y, 26);
+        g.addColorStop(0, 'rgba(255,255,255,0.9)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(lx - 26, y - 26, 52, 52);
+      }
+    };
+
+    if (still) { draw(CYCLE * 0.6); return; }
+    // only animate while the card is on screen
+    let visible = false, raf = 0;
+    const loop = (t: number) => { draw(t); if (visible) raf = requestAnimationFrame(loop); };
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (visible) raf = requestAnimationFrame(loop);
+    }).observe(canvas);
+  });
+</script>
+
+<style>
+  /* fills its card without changing the card's size */
+  .tact-cover { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+</style>

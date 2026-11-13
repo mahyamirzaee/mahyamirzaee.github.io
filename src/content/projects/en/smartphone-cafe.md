@@ -5,7 +5,7 @@ year: "Oct 2023 – Oct 2025"
 context: "CrossComITS, a BMBF-funded research project at the University of Siegen"
 role: "Student research assistant"
 tags: ["Participatory design", "Ethnography", "Digital security"]
-order: 2
+order: 3
 links:
   - label: "CrossComITS project website"
     url: "https://crosscomits.de/"

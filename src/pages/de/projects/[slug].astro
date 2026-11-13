@@ -4,7 +4,7 @@ import { projects } from '../../../i18n';
 
 export async function getStaticPaths() {
   const list = await projects('de');
-  return list.map((p) => ({ params: { slug: p.slug }, props: p }));
+  return list.filter((p) => !p.entry.data.href).map((p) => ({ params: { slug: p.slug }, props: p }));
 }
 const { entry, fallback } = Astro.props;
 ---

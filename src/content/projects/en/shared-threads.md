@@ -5,7 +5,7 @@ year: "2026"
 status: "Work in progress"
 context: "Personal physical computing exploration"
 tags: ["Physical computing", "Textile", "Tangible interaction"]
-order: 4
+order: 5
 gallery:
   - src: "TODO"
     alt: "add photo of the woven textile (50 × 20 cm)"

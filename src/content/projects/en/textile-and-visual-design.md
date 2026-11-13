@@ -5,7 +5,7 @@ year: "2012–2021"
 context: "B.A. Textile Design, Art University of Tehran, and Maya Studio, Tehran"
 role: "Designer; ran my own studio, Maya Studio (2016–2021)"
 tags: ["Textile design", "Weaving", "Visual design"]
-order: 5
+order: 6
 gallery:
   - src: "TODO"
     alt: "add photo of a hand-woven textile"

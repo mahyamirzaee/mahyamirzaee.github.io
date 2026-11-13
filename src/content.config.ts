@@ -15,6 +15,8 @@ const projects = defineCollection({
     gallery: z.array(z.object({ src: z.string(), alt: z.string(), caption: z.string().optional() })).default([]),
     status: z.string().optional(),        // e.g. "Work in progress"
     cover: z.string().optional(),         // e.g. /images/safespace/home.png (file inside public/)
+    coverAnimation: z.string().optional(),// "tact" = the animated woven-thread cover
+    href: z.string().optional(),          // project lives on its own page elsewhere: the card links there
     coverAlt: z.string().optional(),
     order: z.number().default(99),        // smaller number = shown first
     hidden: z.boolean().default(false),   // true = not shown anywhere
