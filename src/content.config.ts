@@ -21,6 +21,7 @@ const projects = defineCollection({
     listYear: z.string().optional(),      // short year shown under the picture on Design projects (default: year)
     listTitle: z.string().optional(),     // short name shown under the picture on Design projects (default: title)
     listShape: z.string().optional(),     // picture shape on Design projects, e.g. "16 / 9" (default: the page rhythm)
+    listCover: z.string().optional(),     // picture used only on Design projects (default: cover)
     // Cover made of parts of one picture, shown one after another (e.g. comic panels):
     coverPanels: z.object({
       src: z.string(),

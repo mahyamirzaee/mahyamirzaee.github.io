@@ -16,8 +16,8 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
     <span class="media" aria-hidden="true">
       {p
         ? <PanelCover src={asset(p.src)} size={p.size} panels={p.panels} every={p.every} />
-        : data.cover
-          ? <img src={asset(data.cover)} alt="" loading="lazy" />
+        : (data.listCover ?? data.cover)
+          ? <img src={asset(data.listCover ?? data.cover)} alt="" loading="lazy" />
           : <Placeholder label={`image for ${data.title}`} ratio="auto" />}
     </span>
     <span class="cap">
