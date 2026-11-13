@@ -1,0 +1,37 @@
+---
+// Email, "Download my CV" and the profile icons, as one small block.
+// Texts and links come from src/content/ui/<lang>.yaml
+import Icon from './Icon.astro';
+import { asset, ui, type Lang } from '../i18n';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = await ui(lang);
+const profiles = (t.footer.links ?? []).filter((l: any) => l.show);
+---
+<div class="contact">
+  <a class="mail" href={`mailto:${t.email}`}>{t.email}</a>
+  <div class="profiles">
+    <a class="cv" href={asset(t.footer.cvFile)} download>{t.footer.cvLabel}</a>
+    <span class="icons">
+      {profiles.map((p: any) => (
+        <a class="icon" href={p.url} rel="noopener" aria-label={p.name} title={p.name}><Icon name={p.icon} /></a>
+      ))}
+    </span>
+  </div>
+</div>
+<style>
+  .contact { display: flex; flex-direction: column; gap: 0.45rem; }
+  .mail { font-size: 0.9rem; color: var(--muted); text-decoration: none; }
+  .mail:hover { color: var(--accent); text-decoration: underline; }
+  /* One row: "Download my CV" + profile icons, same colour, same height, centred on one line */
+  .profiles { display: flex; align-items: center; gap: 1.1rem; margin-top: 0.5rem; }
+  .cv {
+    display: inline-flex; align-items: center; height: 22px;
+    font-size: 1rem; font-weight: 600; color: var(--text);
+    text-decoration: underline; text-decoration-color: var(--thread); text-decoration-thickness: 2px; text-underline-offset: 0.3em;
+  }
+  .cv:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  .icons { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .icon { display: block; color: var(--text); line-height: 0; }
+  .icon:hover { color: var(--accent); }
+</style>

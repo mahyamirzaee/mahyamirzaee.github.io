@@ -4,7 +4,6 @@ import '@fontsource-variable/literata/opsz-italic.css';
 import '@fontsource-variable/atkinson-hyperlegible-next';
 import '@fontsource-variable/atkinson-hyperlegible-next/wght-italic.css';
 import '../styles/global.css';
-import Icon from '../components/Icon.astro';
 import { link, asset, switchLink, ui, type Lang } from '../i18n';
 
 interface Props { title?: string; description?: string; lang: Lang; fallback?: boolean; }
@@ -17,8 +16,6 @@ const navItems = [
   { href: link('projects', lang), label: t.nav.projects },
   { href: link('publications', lang), label: t.nav.publications },
 ];
-const profiles = (t.footer.links ?? []).filter((l: any) => l.show);
-const [first, ...rest] = t.siteName.split(' ');
 ---
 <!doctype html>
 <html lang={lang}>
@@ -37,20 +34,7 @@ const [first, ...rest] = t.siteName.split(' ');
     <a class="skip" href="#main">{t.skipToContent}</a>
     <div class="weave" aria-hidden="true"></div>
     <header class="wrap site-header">
-      <div class="id">
-        <a class="name" href={link('', lang)} aria-current={here === link('', lang) ? 'page' : undefined}>
-          {first} <em>{rest.join(' ')}</em>
-        </a>
-        <a class="mail" href={`mailto:${t.email}`}>{t.email}</a>
-        <div class="profiles">
-          <a class="cv" href={asset(t.footer.cvFile)} download>{t.footer.cvLabel}</a>
-          <span class="icons">
-            {profiles.map((p: any) => (
-              <a class="icon" href={p.url} rel="noopener" aria-label={p.name} title={p.name}><Icon name={p.icon} /></a>
-            ))}
-          </span>
-        </div>
-      </div>
+      <a class="name" href={link('', lang)} aria-current={here === link('', lang) ? 'page' : undefined}>{t.siteName}</a>
       <nav aria-label="Main">
         <ul>
           {navItems.map((i) => (
@@ -77,29 +61,16 @@ const [first, ...rest] = t.siteName.split(' ');
 
 <style>
   .site-header {
-    display: flex; flex-wrap: wrap; align-items: flex-start;
+    display: flex; flex-wrap: wrap; align-items: baseline;
     gap: 1rem 1.5rem; padding-block: 1.6rem; margin-bottom: clamp(3rem, 9vw, 6rem);
   }
-  .id { display: flex; flex-direction: column; gap: 0.45rem; margin-right: auto; }
-  .name { font-family: var(--font-head); font-size: 1.6rem; color: var(--text); text-decoration: none; line-height: 1; white-space: nowrap; }
-  .mail { font-size: 0.9rem; color: var(--muted); text-decoration: none; }
-  .mail:hover { color: var(--accent); text-decoration: underline; }
-  .name em { color: var(--accent); }
+  /* the name uses the same font and size as the menu, in bold */
+  .name { margin-right: auto; font-size: 0.95rem; font-weight: 600; color: var(--text); text-decoration: none; padding-block: 0.3rem; white-space: nowrap; }
+  .name:hover { color: var(--accent); }
   nav ul { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; list-style: none; margin: 0; padding: 0; }
   nav a { font-size: 0.95rem; color: var(--muted); text-decoration: none; padding-block: 0.3rem; }
   nav a:hover { color: var(--text); }
   nav a[aria-current='page'] { color: var(--text); font-weight: 600; }
-  /* One row: "Download my CV" + profile icons, same colour, same height, centred on one line */
-  .profiles { display: flex; align-items: center; gap: 1.1rem; margin-top: 0.5rem; }
-  .cv {
-    display: inline-flex; align-items: center; height: 22px;
-    font-size: 1rem; font-weight: 600; color: var(--text);
-    text-decoration: underline; text-decoration-color: var(--thread); text-decoration-thickness: 2px; text-underline-offset: 0.3em;
-  }
-  .cv:hover { color: var(--accent); text-decoration-color: var(--accent); }
-  .icons { display: inline-flex; align-items: center; gap: 0.5rem; }
-  .icon { display: block; color: var(--text); line-height: 0; }
-  .icon:hover { color: var(--accent); }
   .lang { display: flex; gap: 0.2rem; }
   .lang a { font-size: 0.82rem; text-decoration: none; padding: 0.15rem 0.45rem; color: var(--muted); }
   .lang a:hover { color: var(--text); }
@@ -110,6 +81,6 @@ const [first, ...rest] = t.siteName.split(' ');
   .copy { margin: 0; font-size: 0.85rem; color: var(--muted); }
 
   @media (max-width: 40rem) {
-    .id { width: 100%; }
+    .name { width: 100%; }
   }
 </style>
