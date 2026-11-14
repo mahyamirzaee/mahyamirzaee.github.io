@@ -6,11 +6,16 @@ role: "Sole designer: concept, prototype, project page"
 tags: ["Speculative design", "Research through Design", "Critical interface"]
 order: 2.7
 cover: "/images/nothing-recent/cover-empty.jpg"
-coverAlt: "The prototype's empty state: a grid map with only the user's own dot, above the line 'Nothing in the last 40 minutes.'"
+coverAlt: "Comic: a small furry figure walks with a map in mind, then stands with the hood up, then hides inside the closed hood with question marks overhead."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.
 listTitle: "Nothing Recent"
-listCover: "/images/nothing-recent/card.jpg"
-listShape: "1 / 1"
+# the three comic panels take turns on the card
+coverPanels:
+  src: "/images/nothing-recent/comic.webp"
+  size: [1365, 768]
+  panels: [[28, 29, 429, 711], [473, 29, 429, 711], [919, 29, 429, 711]]
+  every: 2600
+listContrast: 1.25
 listHref: "https://mahyamirzaee.github.io/nothing-recent/"
 links:
   - label: "Project page"
