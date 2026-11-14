@@ -7,24 +7,24 @@ builtWith: "Prototype built with Claude"
 tags: ["Human-Centred AI", "Interaction design", "Prototyping"]
 order: 2.5
 cover: "/images/robofinder/cover.jpg"
-coverAlt: "The RoboFinder homepage prototype: the headline on the left, and the first step of the guided needs check on the right."
+coverAlt: "The RoboFinder homepage: the headline on the left and a service robot comparison dashboard with the RoFi mascot on the right."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.
 listTitle: "RoboFinder"
 listCover: "/images/robofinder/card.jpg"
 listShape: "1 / 1"
-listHref: "https://mahyamirzaee.github.io/alongside/"
+listHref: "https://mahyamirzaee.github.io/robofinder/"
 links:
   - label: "Project page"
-    url: "https://mahyamirzaee.github.io/alongside/"
+    url: "https://mahyamirzaee.github.io/robofinder/"
   - label: "Clickable prototype"
-    url: "https://mahyamirzaee.github.io/alongside/prototype.html"
+    url: "https://mahyamirzaee.github.io/robofinder/prototype.html"
 gallery:
-  - src: "/images/robofinder/result.jpg"
-    alt: "The recommendation: three robots, the first one open with seven criteria, six met and one marked unknown."
-    caption: "Recommendation view: each robot is compared with the user's criteria, and missing data is shown instead of left blank."
-  - src: "/images/robofinder/robots.jpg"
-    alt: "Four robot categories drawn as line drawings, each beside a 1.75 m figure with its height marked."
-    caption: "Robot categories: each robot is drawn next to a person, so its size is easy to understand."
+  - src: "/images/robofinder/needs-check.jpg"
+    alt: "The needs check section: Which robot fits your business? Step 2 of 4 asks which industry you are in."
+    caption: "Needs check: a few guided questions lead to matching robot models instead of a long list."
+  - src: "/images/robofinder/problem.jpg"
+    alt: "The problem section with four cards, and the smart matching block with two paths: browse robots or use the needs check."
+    caption: "Problem framing and smart matching: two paths, browsing or a guided check, lead to one result."
 inPortfolio: false
 ---
 
