@@ -10,9 +10,11 @@ const { entry } = await page('projects', lang);
 const list = await projects(lang);
 // Pictures are placed freely, three in a row, with different sizes and shapes.
 // The rhythm repeats every six projects: width of the picture, its shape, and how far it sits down.
-const widths  = ['28%', '40%', '25%', '28%', '30%', '25%'];
+const widths  = ['38%', '56%', '36%', '44%', '30%', '25%'];
 const shapes  = ['4 / 3', '5 / 4', '1 / 1', '16 / 10', '3 / 4', '4 / 3'];
-const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
+const offsets = ['0rem', '3rem', '0rem', '3rem', '0rem', '4rem'];
+// how far each picture moves in from the left (only on wide screens)
+const lefts   = ['0%', '0%', '8%', '0%', '0%', '0%'];
 ---
 <Base title={entry.data.title} lang={lang}>
   <h1 class="visually-hidden">{entry.data.title}</h1>
@@ -22,7 +24,7 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
         href={p.entry.data.listHref ?? p.entry.data.href ?? link(`projects/${p.slug}`, lang)}
         data={p.entry.data}
         shape={shapes[i % 6]}
-        place={`--w:${widths[i % 6]};--down:${offsets[i % 6]}`}
+        place={`--w:${widths[i % 6]};--down:${offsets[i % 6]};--left:${lefts[i % 6]}`}
         wipLabel={t.workInProgress} />
     ))}
   </ul>
@@ -46,10 +48,10 @@ const offsets = ['0rem', '3rem', '1rem', '1.5rem', '0rem', '4rem'];
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
     row-gap: 4.5rem;
   }
-  .wall :global(.slot) { width: var(--w); margin-top: var(--down); }
+  .wall :global(.slot) { width: var(--w); margin-top: var(--down); margin-left: var(--left, 0); }
   @media (max-width: 52rem) {
     .wall { row-gap: 3rem; }
-    .wall :global(.slot) { width: 47%; margin-top: 0; }
+    .wall :global(.slot) { width: 47%; margin-top: 0; margin-left: 0; }
   }
   @media (max-width: 32rem) {
     .wall :global(.slot) { width: 100%; }

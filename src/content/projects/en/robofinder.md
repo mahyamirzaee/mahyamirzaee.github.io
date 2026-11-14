@@ -5,7 +5,7 @@ year: "2026"
 role: "Interaction design and prototyping during my internship at RoboFinder"
 builtWith: "Prototype built with Claude"
 tags: ["Human-Centred AI", "Interaction design", "Prototyping"]
-order: 2.5
+order: 2.8
 cover: "/images/robofinder/cover.jpg"
 coverAlt: "The RoboFinder homepage: Find the right service robot for your business, beside a product comparison preview with the RoFi mascot."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.

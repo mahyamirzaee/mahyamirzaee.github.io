@@ -4,7 +4,7 @@ short: "A warning app for women under compulsory hijab that admits, on every scr
 year: "2026"
 role: "Sole designer: concept, prototype, project page"
 tags: ["Speculative design", "Research through Design", "Critical interface"]
-order: 2.7
+order: 1
 cover: "/images/nothing-recent/cover-empty.jpg"
 coverAlt: "Comic: a small furry figure walks with a map in mind, then stands with the hood up, then hides inside the closed hood with question marks overhead."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.

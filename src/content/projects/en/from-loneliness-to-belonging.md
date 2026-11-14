@@ -6,7 +6,7 @@ context: "M.Sc. thesis, Human-Computer Interaction, University of Siegen"
 role: "Sole researcher and designer: interviews, analysis, design fictions, prototype"
 builtWith: "Prototype built with Lovable"
 tags: ["Master’s thesis", "Qualitative research", "Design fiction", "LLM companion"]
-order: 1
+order: 2.7
 cover: "/images/safespace/home.png"
 # On the Design projects page: short name, and its own cover picture
 listTitle: "Safe Space"
