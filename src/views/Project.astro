@@ -32,6 +32,7 @@ const { Content } = await render(entry);
           <dt>{n.year}</dt><dd>{d.year}</dd>
           {d.status && <><dt>{n.status}</dt><dd class="wip">{t.workInProgress}</dd></>}
           {d.role && <><dt>{n.role}</dt><dd>{d.role}</dd></>}
+          {d.builtWith && <><dt>{n.builtWith}</dt><dd>{d.builtWith}</dd></>}
           {d.links.length > 0 && <><dt>{n.links}</dt><dd><ul>{d.links.map((l: any) => <li><a href={l.url} rel="noopener">{l.label} ↗</a></li>)}</ul></dd></>}
           {d.tags.length > 0 && <><dt>{n.tags}</dt><dd><ul>{d.tags.map((tag: string) => <li>{tag}</li>)}</ul></dd></>}
         </dl>

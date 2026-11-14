@@ -10,6 +10,7 @@ const projects = defineCollection({
     year: z.string(),
     tags: z.array(z.string()).default([]),
     role: z.string().optional(),
+    builtWith: z.string().optional(),     // tool the prototype was built with, e.g. "Lovable"
     context: z.string().optional(),       // e.g. "M.Sc. thesis, University of Siegen"
     links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
     gallery: z.array(z.object({ src: z.string(), alt: z.string(), caption: z.string().optional() })).default([]),

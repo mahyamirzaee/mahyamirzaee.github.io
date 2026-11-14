@@ -4,6 +4,7 @@ short: "How recently arrived Iranian women in Germany negotiate AI-mediated emot
 year: "2026"
 context: "M.Sc. thesis, Human-Computer Interaction, University of Siegen"
 role: "Sole researcher and designer: interviews, analysis, design fictions, prototype"
+builtWith: "Prototype built with Lovable"
 tags: ["Master’s thesis", "Qualitative research", "Design fiction", "LLM companion"]
 order: 1
 cover: "/images/safespace/home.png"

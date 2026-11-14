@@ -6,6 +6,7 @@ listYear: "2026"
 listTitle: "Robofinder internship"
 context: "Robofinder, remote, Germany"
 role: "UI/UX Designer and Researcher (internship)"
+builtWith: "Prototypes built with Claude Code"
 tags: ["UX research", "Interaction design", "Prototyping"]
 order: 2.5
 gallery:
