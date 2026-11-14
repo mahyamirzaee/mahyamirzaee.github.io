@@ -31,13 +31,14 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
                   {e.where && <span class="where">{e.where}</span>}
                 </summary>
                 {e.text && <p class="desc">{e.text}</p>}
+                {/* links appear only when the entry is opened with + */}
+                {((e.link && d.projectLink) || e.website) && (
+                  <p class="more">
+                    {e.website && <a href={e.website} rel="noopener">{d.websiteLink} ↗</a>}
+                    {e.link && d.projectLink && <a href={href(e.link)}>{d.projectLink} →</a>}
+                  </p>
+                )}
               </details>
-              {((e.link && d.projectLink) || e.website) && (
-                <p class="more">
-                  {e.website && <a href={e.website} rel="noopener">{d.websiteLink} ↗</a>}
-                  {e.link && d.projectLink && <a href={href(e.link)}>{d.projectLink} →</a>}
-                </p>
-              )}
             </li>
           ))}
         </ol>
@@ -57,17 +58,17 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
   .exp > ol > li { border-top: 1px solid var(--line); }
   .exp > ol > li:last-child { border-bottom: 1px solid var(--line); }
   /* Each entry opens and closes on click; the + turns into – when open */
-  summary { list-style: none; cursor: pointer; position: relative; padding: 0.6rem 1.6rem 0.6rem 0; display: block; }
+  summary { list-style: none; cursor: pointer; position: relative; padding: 0.75rem 1.6rem 0.75rem 0; display: block; }
   summary::-webkit-details-marker { display: none; }
-  summary::after { content: '+'; position: absolute; right: 0.1rem; top: 0.55rem; font-size: 1.1rem; color: var(--muted); line-height: 1; }
+  summary::after { content: '+'; position: absolute; right: 0.1rem; top: 0.7rem; font-size: 1.1rem; color: var(--muted); line-height: 1; }
   details[open] summary::after { content: '–'; }
   summary:hover .what { color: var(--accent); }
   .when { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 0.15rem; }
   .what { display: block; font-weight: 600; font-size: 0.98rem; line-height: 1.4; }
   .where { display: block; margin-top: 0.1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
   .desc { margin: 0 0 0.6rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
-  /* Links are always visible under the entry, even when it is closed */
-  .more { margin: -0.3rem 0 0.6rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+  /* Links inside an opened entry */
+  .more { margin: 0 0 0.9rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
 
   @media (max-width: 62rem) {
     .home { grid-template-columns: 1fr; }

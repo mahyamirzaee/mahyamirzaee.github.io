@@ -9,7 +9,7 @@ const t = await ui(lang);
 const profiles = (t.footer.links ?? []).filter((l: any) => l.show);
 ---
 <div class="contact">
-  <a class="mail" href={`mailto:${t.email}`}>{t.email}</a>
+  <p class="mail">{t.contactLabel} <a href={`mailto:${t.email}`}>{t.email}</a></p>
   <div class="profiles">
     <a class="cv" href={asset(t.footer.cvFile)} download>{t.footer.cvLabel}</a>
     <span class="icons">
@@ -21,8 +21,9 @@ const profiles = (t.footer.links ?? []).filter((l: any) => l.show);
 </div>
 <style>
   .contact { display: flex; flex-direction: column; gap: 0.45rem; }
-  .mail { font-size: 0.9rem; color: var(--muted); text-decoration: none; }
-  .mail:hover { color: var(--accent); text-decoration: underline; }
+  .mail { margin: 0; font-size: 0.9rem; color: var(--muted); }
+  .mail a { color: var(--muted); text-decoration: none; }
+  .mail a:hover { color: var(--accent); text-decoration: underline; }
   /* One row: "Download my CV" + profile icons, same colour, same height, centred on one line */
   .profiles { display: flex; align-items: center; gap: 1.1rem; margin-top: 0.5rem; }
   .cv {
