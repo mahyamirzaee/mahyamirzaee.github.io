@@ -50,7 +50,9 @@ const href = (slug?: string) => (slug ? link(`projects/${slug}`, lang) : undefin
   .home { display: grid; grid-template-columns: minmax(0, 44.5rem) minmax(16rem, 1fr); gap: 3rem clamp(2.5rem, 6vw, 5.5rem); align-items: start; }
   .text { line-height: 1.75; }
   .text :global(p) { margin-bottom: 1.3em; }
-  .text :global(em) { font-style: italic; color: var(--accent); }
+  /* all text on the left in one font and colour, including *emphasised* words */
+  .text { color: var(--text); }
+  .text :global(em), .text :global(strong) { font-style: normal; font-weight: inherit; color: inherit; }
 
   .contact-wrap { margin-bottom: 2rem; }
   .exp h2 { font-family: var(--font-text); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0.4rem 0 1.2rem; }
