@@ -15,7 +15,7 @@ const { Content } = await render(entry);
 ---
 <Base title={d.title} description={d.short} lang={lang} fallback={fallback}>
   <article>
-    <p class="eyebrow"><a href={link('projects', lang)}>← {t.backToProjects}</a></p>
+    <p class="back"><a href={link('projects', lang)}>‹ {t.backToProjects}</a></p>
     <header class="head">
       <h1>{d.title}</h1>
       <p class="lead">{d.short}</p>
@@ -54,6 +54,10 @@ const { Content } = await render(entry);
   </article>
 </Base>
 <style>
+  /* the same back link as on the separate project pages */
+  .back { font-size: 14px; margin: 0 0 1.5rem; }
+  .back a { color: #55545f; text-decoration: none; }
+  .back a:hover { color: var(--text); text-decoration: underline; }
   .head { max-width: 52rem; margin-bottom: 3rem; }
   .lead { font-size: 1.1rem; line-height: 1.5; color: var(--muted); max-width: var(--measure); }
   .hero { margin: 0 0 4rem; background: var(--surface); }
