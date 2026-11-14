@@ -11,7 +11,7 @@ const p = data.coverPanels;
 // a panel slideshow takes the shape of its panels; otherwise the project's own shape or the page rhythm
 const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?? shape);
 ---
-<li class="piece slot" style={`--shape:${boxShape};${place}`}>
+<li class:list={['piece slot', { framed: data.listFrame }]} style={`--shape:${boxShape};${place}`}>
   <a href={href} {...(external ? { rel: 'noopener' } : {})}>
     <span class="media" aria-hidden="true" style={data.listContrast ? `filter:contrast(${data.listContrast})` : undefined}>
       {p
@@ -34,6 +34,8 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
   /* the cropped comic panel (Safe Space) moves the same way on hover */
   .media :global(.panels) { transition: transform .6s ease; }
   a:hover .media :global(.panels) { transform: scale(1.02); }
+  /* thin frame line, for pictures whose background is the same as the page */
+  .framed .media::after { content: ''; position: absolute; inset: 0; border: 1px solid #d6d3de; pointer-events: none; }
   .media :global(.ph) { position: absolute; inset: 0; height: 100%; aspect-ratio: auto !important; }
   /* one small line under the picture */
   .cap { display: block; margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -24,6 +24,7 @@ const projects = defineCollection({
     listShape: z.string().optional(),     // picture shape on Design projects, e.g. "16 / 9" (default: the page rhythm)
     listCover: z.string().optional(),     // picture used only on Design projects (default: cover)
     listContrast: z.number().optional(),  // contrast of the Design projects picture (1 = unchanged)
+    listFrame: z.boolean().optional(),    // true = a thin frame line around the Design projects picture
     // Cover made of parts of one picture, shown one after another (e.g. comic panels):
     coverPanels: z.object({
       src: z.string(),
