@@ -9,7 +9,7 @@ order: 1
 cover: "/images/safespace/home.png"
 # On the Design projects page: short name, and its own square cover picture
 listTitle: "Safe Space"
-listCover: "/images/safespace/cover-sketch.jpg"
+listCover: "/images/safespace/cover-journaling.jpg"
 listShape: "1 / 1"
 # The Design projects card opens the separate SafeSpace project page; this thesis page still exists for Home and Publications.
 listHref: "https://mahyamirzaee.github.io/safespace/"
