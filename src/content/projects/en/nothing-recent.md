@@ -9,14 +9,9 @@ cover: "/images/nothing-recent/cover-empty.jpg"
 coverAlt: "Comic: a small furry figure walks with a map in mind, then stands with the hood up, then hides inside the closed hood with question marks overhead."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.
 listTitle: "Nothing Recent"
-# the three comic panels take turns on the card
-coverPanels:
-  src: "/images/nothing-recent/comic.webp"
-  size: [1365, 768]
-  # inside the drawn frames, so no black border shows on the card
-  panels: [[36, 36, 414, 694], [481, 36, 414, 694], [927, 36, 414, 694]]
-  every: 2600
-listContrast: 1.25
+# the card shows this drawing, whole (the comic panels are kept in images/nothing-recent/comic.webp)
+listCover: "/images/nothing-recent/cover-phone.jpg"
+listShape: "1101 / 960"
 listHref: "https://mahyamirzaee.github.io/nothing-recent/"
 links:
   - label: "Project page"
