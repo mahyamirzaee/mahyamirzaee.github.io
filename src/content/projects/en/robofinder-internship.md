@@ -9,6 +9,7 @@ role: "UI/UX Designer and Researcher (internship)"
 builtWith: "Prototypes built with Claude Code"
 tags: ["UX research", "Interaction design", "Prototyping"]
 order: 2.5
+hidden: true   # replaced by the anonymous Alongside card (14 Nov 2026)
 gallery:
   - src: "TODO"
     alt: "add an image of the work (only what you are allowed to show)"

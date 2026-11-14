@@ -12,7 +12,6 @@ experience:
   - when: Summer 2026
     what: UI/UX Designer and Researcher (internship)
     where: Robofinder, remote
-    link: robofinder-internship
     text: I conducted qualitative interviews with partner agencies and turned their usability feedback into a prioritised UX roadmap. I redesigned the hero section, navigation, and conversion flows to improve B2B onboarding, wireframed user journeys, and built high-fidelity prototypes with Claude Code. I also audited the site’s UX, restructured the CMS blog, and refined the English copy and localisation.
 
   - when: Oct 2025 – Apr 2026
