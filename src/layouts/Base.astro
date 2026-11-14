@@ -42,9 +42,11 @@ const navItems = [
           ))}
         </ul>
       </nav>
-      <div class="lang" role="group" aria-label={t.languageLabel}>
-        <a href={switchLink(Astro.url, 'en')} lang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
-        <a href={switchLink(Astro.url, 'de')} lang="de" aria-current={lang === 'de' ? 'true' : undefined}>DE</a>
+      <!-- only the other language is shown: DE on English pages, EN on German pages -->
+      <div class="lang">
+        {lang === 'en'
+          ? <a href={switchLink(Astro.url, 'de')} lang="de" hreflang="de" aria-label="Deutsch">DE</a>
+          : <a href={switchLink(Astro.url, 'en')} lang="en" hreflang="en" aria-label="English">EN</a>}
       </div>
     </header>
 
