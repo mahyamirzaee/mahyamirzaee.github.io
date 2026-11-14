@@ -23,6 +23,7 @@ const projects = defineCollection({
     listTitle: z.string().optional(),     // short name shown under the picture on Design projects (default: title)
     listShape: z.string().optional(),     // picture shape on Design projects, e.g. "16 / 9" (default: the page rhythm)
     listCover: z.string().optional(),     // picture used only on Design projects (default: cover)
+    listContrast: z.number().optional(),  // contrast of the Design projects picture (1 = unchanged)
     // Cover made of parts of one picture, shown one after another (e.g. comic panels):
     coverPanels: z.object({
       src: z.string(),

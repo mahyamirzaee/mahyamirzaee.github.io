@@ -13,7 +13,7 @@ const boxShape = p ? `${p.panels[0][2]} / ${p.panels[0][3]}` : (data.listShape ?
 ---
 <li class="piece slot" style={`--shape:${boxShape};${place}`}>
   <a href={href} {...(external ? { rel: 'noopener' } : {})}>
-    <span class="media" aria-hidden="true">
+    <span class="media" aria-hidden="true" style={data.listContrast ? `filter:contrast(${data.listContrast})` : undefined}>
       {p
         ? <PanelCover src={asset(p.src)} size={p.size} panels={p.panels} every={p.every} />
         : (data.listCover ?? data.cover)

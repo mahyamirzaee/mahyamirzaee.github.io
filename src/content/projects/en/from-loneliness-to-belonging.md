@@ -8,10 +8,15 @@ builtWith: "Prototype built with Lovable"
 tags: ["Master’s thesis", "Qualitative research", "Design fiction", "LLM companion"]
 order: 1
 cover: "/images/safespace/home.png"
-# On the Design projects page: short name, and its own square cover picture
+# On the Design projects page: short name, and its own cover picture
 listTitle: "Safe Space"
-listCover: "/images/safespace/cover-journaling.jpg"
-listShape: "1 / 1"
+# The drawing, cropped to a square around the figure and the speech bubble ([left, top, width, height] in pixels)
+coverPanels:
+  src: "/images/safespace/cover-bureaucracy.webp"
+  size: [1455, 2000]
+  panels: [[60, 515, 1395, 1395]]
+# a little more contrast so the thin lines and the text stay readable when small (1 = unchanged)
+listContrast: 1.5
 # The Design projects card opens the separate SafeSpace project page; this thesis page still exists for Home and Publications.
 listHref: "https://mahyamirzaee.github.io/safespace/"
 coverAlt: "Start screen of the SafeSpace prototype with three areas: write your thoughts, stories, and find help."
