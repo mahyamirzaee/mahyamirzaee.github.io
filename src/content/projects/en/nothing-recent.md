@@ -13,7 +13,8 @@ listTitle: "Nothing Recent"
 coverPanels:
   src: "/images/nothing-recent/comic.webp"
   size: [1365, 768]
-  panels: [[28, 29, 429, 711], [473, 29, 429, 711], [919, 29, 429, 711]]
+  # inside the drawn frames, so no black border shows on the card
+  panels: [[36, 36, 414, 694], [481, 36, 414, 694], [927, 36, 414, 694]]
   every: 2600
 listContrast: 1.25
 listHref: "https://mahyamirzaee.github.io/nothing-recent/"
