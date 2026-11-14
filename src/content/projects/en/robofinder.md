@@ -7,7 +7,7 @@ builtWith: "Prototype built with Claude"
 tags: ["Human-Centred AI", "Interaction design", "Prototyping"]
 order: 2.5
 cover: "/images/robofinder/cover.jpg"
-coverAlt: "The RoboFinder homepage: the headline on the left and a service robot comparison dashboard with the RoFi mascot on the right."
+coverAlt: "The RoboFinder homepage: Find the right service robot for your business, beside a product comparison preview with the RoFi mascot."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.
 listTitle: "RoboFinder"
 listCover: "/images/robofinder/card.jpg"
@@ -19,12 +19,12 @@ links:
   - label: "Clickable prototype"
     url: "https://mahyamirzaee.github.io/robofinder/prototype.html"
 gallery:
-  - src: "/images/robofinder/needs-check.jpg"
-    alt: "The needs check section: Which robot fits your business? Step 2 of 4 asks which industry you are in."
-    caption: "Needs check: a few guided questions lead to matching robot models instead of a long list."
-  - src: "/images/robofinder/problem.jpg"
-    alt: "The problem section with four cards, and the smart matching block with two paths: browse robots or use the needs check."
-    caption: "Problem framing and smart matching: two paths, browsing or a guided check, lead to one result."
+  - src: "/images/robofinder/wizard.jpg"
+    alt: "Two routes to a shortlist: browse the catalogue, or the guided needs check at step 2 of 4."
+    caption: "Two routes to one shortlist: users browse the catalogue themselves, or a guided needs check recommends matching robots."
+  - src: "/images/robofinder/insights.jpg"
+    alt: "RoboFinder Insights: content categories above filters for content type, topic, industry and application."
+    caption: "Insights: technical knowledge structured into categories and filters, so decision-makers can find what applies to them."
 inPortfolio: false
 ---
 
