@@ -10,9 +10,8 @@ cover: "/images/robofinder/cover.jpg"
 coverAlt: "The RoboFinder homepage: Find the right service robot for your business, beside a product comparison preview with the RoFi mascot."
 # On the Design projects page: short name, its own picture, and the card opens the separate project page.
 listTitle: "RoboFinder"
-listCover: "/images/robofinder/card-robot.jpg"   # the robot drawing on a white background (original in materials/robofinder)
+listCover: "/images/robofinder/card.jpg"   # a screenshot of the prototype (robot drawing alternative: card-robot.jpg)
 listShape: "1 / 1"
-listFrame: true
 listHref: "https://mahyamirzaee.github.io/robofinder/"
 links:
   - label: "Project page"
